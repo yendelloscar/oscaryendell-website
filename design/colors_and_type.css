@@ -1,0 +1,205 @@
+/* Oscar Yendell Design System — colours, type, spacing, motion */
+
+@import url('fonts/fonts.css');
+
+:root {
+  /* === Ink / paper === */
+  --ink: #1F2A30;
+  --ink-soft: #4A5862;
+  --ink-mute: #7C8A93;
+  --ink-line: rgba(31, 42, 48, 0.12);
+  --paper: #F7F2E8;
+  --paper-soft: #FBF7EF;
+  --paper-deep: #EFE7D5;
+  --paper-card: #FFFFFF;
+
+  /* === Brand === */
+  --teal: #2F6B6B;
+  --teal-deep: #1F4D4D;
+  --teal-soft: #CFE0DD;
+  --teal-wash: #E6EFEC;
+
+  --clay: #C8633B;
+  --clay-deep: #9C4A2A;
+  --clay-soft: #F1D8C5;
+  --clay-wash: #FAEDE2;
+
+  --ochre: #D9A441;
+  --ochre-soft: #F2E0B6;
+
+  --moss: #6B8E5A;
+  --moss-soft: #D6E2CC;
+
+  --plum: #7A4A6B;
+  --plum-soft: #E2D2DD;
+
+  /* === Semantic === */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-soft: var(--ink-soft);
+  --fg-mute: var(--ink-mute);
+  --link: var(--teal);
+  --link-hover: var(--teal-deep);
+
+  /* === Type === */
+  --font-display: 'Lora', 'Newsreader', 'Source Serif 4', Georgia, serif;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-alt: 'DM Sans', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale (px) */
+  --t-display: 56px;     --lh-display: 1.08;
+  --t-h1: 40px;          --lh-h1: 1.15;
+  --t-h2: 28px;          --lh-h2: 1.22;
+  --t-h3: 20px;          --lh-h3: 1.35;
+  --t-eyebrow: 13px;     --lh-eyebrow: 1.2;
+  --t-body: 17px;        --lh-body: 1.55;
+  --t-small: 14px;       --lh-small: 1.45;
+  --t-cite: 13px;        --lh-cite: 1.4;
+
+  /* === Spacing === */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* === Radii === */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 24px;
+  --r-pill: 999px;
+
+  /* === Shadows === */
+  --shadow-card: 0 1px 2px rgba(31, 42, 48, 0.06), 0 8px 24px -12px rgba(31, 42, 48, 0.18);
+  --shadow-pop:  0 2px 4px rgba(31, 42, 48, 0.08), 0 16px 40px -16px rgba(31, 42, 48, 0.24);
+
+  /* === Motion === */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --d-fast: 180ms;
+  --d-mid: 280ms;
+  --d-slow: 600ms;
+}
+
+/* === Base styles === */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--fg);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-h1); line-height: var(--lh-h1); letter-spacing: -0.01em; }
+h2 { font-size: var(--t-h2); line-height: var(--lh-h2); letter-spacing: -0.005em; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: var(--t-h3); line-height: var(--lh-h3); letter-spacing: -0.005em; }
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: rgba(47, 107, 107, 0.4);
+  text-underline-offset: 3px;
+  transition: color var(--d-fast) var(--ease), text-decoration-color var(--d-fast) var(--ease);
+}
+a:hover { color: var(--link-hover); text-decoration-color: var(--link-hover); }
+
+/* === Utility classes === */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--t-eyebrow);
+  line-height: var(--lh-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.015em;
+}
+
+.cite {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--t-cite);
+  line-height: var(--lh-cite);
+  color: var(--fg-mute);
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* === Components === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 10px 18px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  font: 600 15px/1 var(--font-body);
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease), transform var(--d-fast) var(--ease);
+}
+.btn-primary { background: var(--teal); color: var(--paper-soft); }
+.btn-primary:hover { background: var(--teal-deep); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
+.btn-ghost:hover { background: var(--teal-wash); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--teal-wash);
+  color: var(--teal-deep);
+  font: 600 12px/1.4 var(--font-body);
+  letter-spacing: 0.02em;
+}
+.chip.clay { background: var(--clay-wash); color: var(--clay-deep); }
+.chip.moss { background: var(--moss-soft); color: #3F5A30; }
+.chip.plum { background: var(--plum-soft); color: var(--plum); }
+.chip.ochre { background: var(--ochre-soft); color: #7A5A12; }
+
+.card {
+  background: var(--paper-soft);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--r-md);
+  padding: var(--s-5) var(--s-6);
+}
+.card.elevated { box-shadow: var(--shadow-card); border-color: transparent; }
+.card.accent-teal { border-left: 4px solid var(--teal); }
+.card.accent-clay { border-left: 4px solid var(--clay); }
+.card.accent-moss { border-left: 4px solid var(--moss); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
