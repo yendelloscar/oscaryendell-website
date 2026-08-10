@@ -1,13 +1,13 @@
 function Voices() {
   const items = [
-  { quote: 'Platzhalter — hier steht später ein Originalzitat einer Schulleitung oder Fortbildungs­teilnehmer*in.',
-    name: 'Christine Jungmann, Schulleitung', role: 'Grundschule · Rheinland-Pfalz', placeholder: true },
-  { quote: 'Platzhalter — Stimme aus einem Studientag oder einer Fortbildungs­reihe.',
-    name: 'Christina Muscutt & Christine Schoelen', role: 'Landschaftsverband Rheinland', placeholder: true },
-  { quote: 'Platzhalter — Rückmeldung einer Sozialarbeiter*in oder Schulsozialpädagog*in.',
-    name: 'Jaana Espenlaub', role: 'ArbeiterKind.de', placeholder: true },
-  { quote: 'Platzhalter — Stimme einer Bildungsbüro- oder Stiftungs­ansprechperson.',
-    name: 'Mareike Fritz', role: 'Stiftung Lernen durch Engagement', placeholder: true }];
+  { quote: 'Von der Vorbereitung über die Durchführung bis zur Nachbereitung war es eine produktive Zusammenarbeit. Man ging individuell und unkompliziert auf unsere Vorstellungen ein - Schulleitung und Kollegium waren sehr angetan. Herr Yendell und seine Kollegin waren äußerst kompetent, einfühlsam und insgesamt überzeugend.',
+    name: 'Christoph Timmerhues', role: 'stellv. Schulleitung · Grundschule · Rheinland-Pfalz', placeholder: false },
+  { quote: 'Die Workshops zur Armutssensibilität, die Oscar Yendell bei uns gegeben hat, waren fachlich sehr fundiert und gleichzeitig nah an der Praxis der angehenden Lehrkräfte. Besonders wertvoll war, wie konkret die Inhalte an alltäglichen Beispielen ausgerichtet wurden.',
+    name: 'Jaana Espenlaub', role: 'ArbeiterKind.de', placeholder: false },
+  { quote: 'Die Zusammenarbeit mit Oscar Yendell bei der Entwicklung des Materials zur armutssensiblen Schulentwicklung war fachlich fundiert, verlässlich und immer mit klarem Blick für die schulische Praxis. Gemeinsam ist es uns gelungen, wissenschaftlich fundierte Perspektiven in ein strukturiertes und flexibel einsetzbares Arbeitsmaterial zu übersetzen. Das kostenlos zugängliche Material schließt damit eine bislang bestehende Lücke und unterstützt Schulen dabei, Armutssensibilität systematischer in den Blick zu nehmen und weiterzuentwickeln.',
+    name: 'Mareike Fritz', role: 'Stiftung Lernen durch Engagement', placeholder: false },
+  { quote: 'Als Teilnehmer der Fortbildung habe ich sehr davon profitiert, Armutssensibilität nicht nur theoretisch, sondern anhand konkreter Situationen aus unserem Arbeitsalltag zu besprechen. Für die Koordination der Schulsozialarbeit in unserer Kommune haben wir daraus direkt umsetzbare Ansätze mitnehmen können, die wir künftig umsetzen wollen.',
+    name: 'Markus Bender', role: 'Koordination Schulsozialarbeit, Bayern', placeholder: false }];
 
   return (
     <section className="section section--soft">

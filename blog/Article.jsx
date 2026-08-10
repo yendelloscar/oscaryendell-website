@@ -9,7 +9,7 @@ function Article() {
             <span className="article__tag">Grundlagen</span>
             <h1 className="article__title">Was ist Armutssensibilität?</h1>
             <div className="article__meta">
-              <span>01. August 2026</span>
+              <span>01. Mai 2026</span>
             </div>
           </Reveal>
 

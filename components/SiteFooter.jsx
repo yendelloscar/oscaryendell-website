@@ -12,10 +12,6 @@ function SiteFooter({ isBlog = false }) {
                 <div className="brand__tag">Armutssensibilität in pädagogischen Kontexten</div>
               </div>
             </a>
-            <p className="site-footer__about">Beratung, Fortbildung und Materialentwicklung für eine armuts­sensible Bildungs­praxis.
-
-
-            </p>
           </div>
           <div className="site-footer__col">
             <h4>FORMATE</h4>

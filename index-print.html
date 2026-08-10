@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dr. Oscar Yendell · Armutssensibilität in pädagogischen Kontexten</title>
+<meta name="description" content="Beratung, Fortbildung und Materialentwicklung für eine armutssensible Bildungspraxis." />
+<link rel="stylesheet" href="design/colors_and_type.css" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* ===== Print-ready overrides ===== */
+  @page { size: A4 portrait; margin: 14mm 0; }
+
+  @media print {
+    html, body { background: #fff !important; }
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    /* Freeze any animations at their end state */
+    *, *::before, *::after {
+      animation-delay: -99s !important; animation-duration: .001s !important;
+      animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+      animation-play-state: running !important; transition-duration: 0s !important;
+    }
+    /* Reveal-on-scroll wrappers must show their visible end-state */
+    .reveal { opacity: 1 !important; transform: none !important; }
+
+    /* Sticky nav → static; drop blur so it prints cleanly */
+    .site-header {
+      position: static !important;
+      backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+      background: #fff !important;
+      break-inside: avoid;
+    }
+    .menu-btn, .site-nav { display: none !important; }
+
+    /* Don't split key blocks across pages */
+    section { break-inside: avoid-page; }
+    .offer, .voice, .format-card, .featured-card, .post-card,
+    .contact__form, .portrait-frame, .about__portrait, .hero__portrait {
+      break-inside: avoid;
+    }
+    h1, h2, h3 { break-after: avoid; }
+    p, li { orphans: 3; widows: 3; }
+
+    /* Give big sections a little air between pages */
+    .hero { break-after: page; }
+    #person, #termine, #kontakt { break-before: page; }
+
+    a { text-decoration: none; color: inherit; }
+  }
+
+  /* Also apply the visible-state + static-nav rules on screen so the
+     print-tab preview (before the print dialog) looks correct too. */
+  .reveal { opacity: 1; transform: none; }
+  .site-header { position: static; backdrop-filter: none; -webkit-backdrop-filter: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components/Common.jsx"></script>
+<script type="text/babel" src="components/Header.jsx"></script>
+<script type="text/babel" src="components/Hero.jsx"></script>
+<script type="text/babel" src="components/Offers.jsx"></script>
+<script type="text/babel" src="components/About.jsx"></script>
+<script type="text/babel" src="components/Voices.jsx"></script>
+<script type="text/babel" src="components/Events.jsx"></script>
+<script type="text/babel" src="components/BlogTeaser.jsx"></script>
+<script type="text/babel" src="components/Contact.jsx"></script>
+<script type="text/babel" src="components/SiteFooter.jsx"></script>
+
+<script type="text/babel">
+function App() {
+  return (
+    <>
+      <Header active="home" />
+      <main>
+        <Hero />
+        <Offers />
+        <About />
+        <Voices />
+        <Events />
+        <BlogTeaser />
+        <Contact />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+// Auto-print once React has mounted, fonts are ready, and images decoded.
+(function () {
+  function ready() {
+    var imgs = Array.prototype.slice.call(document.images);
+    var imgWait = Promise.all(imgs.map(function (img) {
+      if (img.complete) return Promise.resolve();
+      return new Promise(function (res) { img.onload = img.onerror = res; });
+    }));
+    var fontWait = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    Promise.all([imgWait, fontWait]).then(function () {
+      setTimeout(function () { window.print(); }, 600);
+    });
+  }
+  // Wait until React has rendered something into #root
+  var tries = 0;
+  (function waitForMount() {
+    var root = document.getElementById('root');
+    if (root && root.childElementCount > 0) { ready(); return; }
+    if (tries++ > 200) { ready(); return; }
+    setTimeout(waitForMount, 50);
+  })();
+})();
+</script>
+</body>
+</html>
