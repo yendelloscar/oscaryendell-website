@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /index-print.html
+Disallow: /blog/index-print.html
+Disallow: /blog/index-print-5kb1dx.html
+
+Sitemap: https://oscaryendell.de/sitemap.xml

@@ -33,7 +33,7 @@ function SiteFooter({ isBlog = false }) {
           </div>
         </div>
         <div className="site-footer__bottom">
-          <div>© 2026 Dr. Oscar Yendell · Alle Rechte vorbehalten.</div>
+          <div>© 2026 Dr. Oscar Yendell · Alle Rechte vorbehalten. · Fotos: <a href="https://www.conen.photos/" target="_blank" rel="noopener">Sebastian Conen</a></div>
           <div className="site-footer__social">
             <a href="https://www.linkedin.com/in/oscar-yendell/" aria-label="LinkedIn" target="_blank" rel="noopener"><Icon name="linkedin" size={16} /></a>
             <a href="mailto:mail@oscaryendell.de" aria-label="E-Mail" style={{ marginLeft: 8 }}><Icon name="mail" size={16} /></a>

@@ -4,7 +4,7 @@ function BlogList() {
     title: 'Was ist Armutssensibilität?',
     excerpt:
       'Ein Einstieg in den Begriff, der meine Arbeit trägt: Was meint Armuts­sensibilität in pädagogischen Kontexten? Und was bedeutet sie konkret für den Schul- und Bildungsalltag?',
-    date: '01. August 2026',
+    date: '01. Mai 2026',
     read: '6 Min. Lesezeit',
     cat: 'Grundlagen',
     illu: 'gespraech.svg',
