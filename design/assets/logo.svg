@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240" role="img" aria-label="Dr. Oscar Yendell — Armutssensibilität &amp; Bildung">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    
+    <path d="M120 70 L200 22 L280 70" stroke="#2F6B6B" stroke-width="2.6"></path>
+    
+    <path d="M132 70 L132 148 L268 148 L268 70" stroke="#1F2A30" stroke-width="2.2"></path>
+    
+    <line x1="200" y1="22" x2="200" y2="6" stroke="#2F6B6B" stroke-width="1.8"></line>
+    
+    <rect x="148" y="86" width="32" height="26" stroke="#1F2A30" stroke-width="1.6"></rect>
+    <line x1="164" y1="86" x2="164" y2="112" stroke="#1F2A30" stroke-width="1.4"></line>
+    <line x1="148" y1="99" x2="180" y2="99" stroke="#1F2A30" stroke-width="1.4"></line>
+    <rect x="220" y="86" width="32" height="26" stroke="#1F2A30" stroke-width="1.6"></rect>
+    <line x1="236" y1="86" x2="236" y2="112" stroke="#1F2A30" stroke-width="1.4"></line>
+    <line x1="220" y1="99" x2="252" y2="99" stroke="#1F2A30" stroke-width="1.4"></line>
+    
+    <path d="M186 148 L186 120 Q186 116 190 116 L200 120 L210 116 Q214 116 214 120 L214 148 Z" stroke="#2F6B6B" stroke-width="2"></path>
+    <line x1="200" y1="120" x2="200" y2="148" stroke="#2F6B6B" stroke-width="1.6"></line>
+  </g>
+  
+  <path d="M200 6 L214 10 L200 14 Z" fill="#2F6B6B"></path>
+
+  
+  <line x1="20" y1="166" x2="380" y2="166" stroke="#1F2A30" stroke-width="1"></line>
+
+  
+  <line x1="180" y1="186" x2="220" y2="186" stroke="#1F2A30" stroke-width="1"></line>
+  <text class="name" x="200" y="208" text-anchor="middle">DR. OSCAR YENDELL</text>
+  <text class="sub" x="200" y="226" text-anchor="middle">Armutssensibilität &amp; Bildung</text>
+</svg>

@@ -1,0 +1,63 @@
+/* Oscar Yendell Design System — webfonts (all locally hosted, all confirmed
+   brand fonts uploaded by the user).
+
+   DISPLAY: Lora (variable, wght axis) — transitional serif for slide titles,
+   section heads, big quotes.
+   BODY: Inter (variable, opsz + wght axes) — humanist sans for paragraphs,
+   lists, UI, eyebrow labels, citations.
+   ALT SANS: DM Sans (variable) — secondary sans available for editorial and
+   numerical contexts. */
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('Lora-VariableFont_wght.ttf') format('truetype-variations'),
+       url('Lora-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('Lora-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('Lora-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('Inter-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('Inter-VariableFont_opsz_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('DMSans-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('DMSans-VariableFont_opsz_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: italic;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+}
