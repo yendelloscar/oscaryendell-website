@@ -13,8 +13,8 @@
   font-style: normal;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('Lora-VariableFont_wght.ttf') format('truetype-variations'),
-       url('Lora-VariableFont_wght.ttf') format('truetype');
+  src: url('Lora-VariableFont_wght.woff2') format('woff2-variations'),
+       url('Lora-VariableFont_wght.woff2') format('woff2');
 }
 
 @font-face {
@@ -22,8 +22,8 @@
   font-style: italic;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('Lora-Italic-VariableFont_wght.ttf') format('truetype-variations'),
-       url('Lora-Italic-VariableFont_wght.ttf') format('truetype');
+  src: url('Lora-Italic-VariableFont_wght.woff2') format('woff2-variations'),
+       url('Lora-Italic-VariableFont_wght.woff2') format('woff2');
 }
 
 @font-face {
@@ -31,8 +31,8 @@
   font-style: normal;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('Inter-VariableFont_opsz_wght.ttf') format('truetype-variations'),
-       url('Inter-VariableFont_opsz_wght.ttf') format('truetype');
+  src: url('Inter-VariableFont_opsz_wght.woff2') format('woff2-variations'),
+       url('Inter-VariableFont_opsz_wght.woff2') format('woff2');
 }
 
 @font-face {
@@ -40,8 +40,8 @@
   font-style: italic;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
-       url('Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+  src: url('Inter-Italic-VariableFont_opsz_wght.woff2') format('woff2-variations'),
+       url('Inter-Italic-VariableFont_opsz_wght.woff2') format('woff2');
 }
 
 @font-face {
@@ -49,8 +49,8 @@
   font-style: normal;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('DMSans-VariableFont_opsz_wght.ttf') format('truetype-variations'),
-       url('DMSans-VariableFont_opsz_wght.ttf') format('truetype');
+  src: url('DMSans-VariableFont_opsz_wght.woff2') format('woff2-variations'),
+       url('DMSans-VariableFont_opsz_wght.woff2') format('woff2');
 }
 
 @font-face {
@@ -58,6 +58,6 @@
   font-style: italic;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
-       url('DMSans-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+  src: url('DMSans-Italic-VariableFont_opsz_wght.woff2') format('woff2-variations'),
+       url('DMSans-Italic-VariableFont_opsz_wght.woff2') format('woff2');
 }
