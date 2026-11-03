@@ -55,15 +55,12 @@ function prerender(rel, html) {
     vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
   }
   if (rendered == null) throw new Error(`${rel}: keine render()-Ausgabe gefunden`);
-  // Einblend-Effekt nur, wenn die Seite wirklich per JavaScript läuft. Lädt React nicht
-  // (z. B. bei Suchmaschinen mit begrenztem Ladebudget), bleiben alle Inhalte sichtbar.
-  const guardHead = '<script>document.documentElement.classList.add(\'app-ready\')</script>\n' +
-    '<style>html:not(.app-ready) .reveal{opacity:1!important;transform:none!important}</style>\n';
-  const guardBody = '<script>if(!window.Header)document.documentElement.classList.remove(\'app-ready\')</script>\n';
+  // Einblend-Effekt abgeschaltet: Abschnitte blieben sonst für Suchmaschinen unsichtbar,
+  // weil deren Renderer nicht scrollt. Inhalte sind immer sofort sichtbar.
+  const noReveal = '<style>.reveal{opacity:1!important;transform:none!important;transition:none!important}</style>\n';
   return html
     .replace('<div id="root"></div>', `<div id="root">${rendered}</div>`)
-    .replace('</head>', guardHead + '</head>')
-    .replace(/<\/body>(?![\s\S]*<\/body>)/, guardBody + '</body>');
+    .replace('</head>', noReveal + '</head>');
 }
 
 function pageUrl(rel) {
