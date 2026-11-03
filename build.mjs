@@ -55,7 +55,15 @@ function prerender(rel, html) {
     vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
   }
   if (rendered == null) throw new Error(`${rel}: keine render()-Ausgabe gefunden`);
-  return html.replace('<div id="root"></div>', `<div id="root">${rendered}</div>`);
+  // Einblend-Effekt nur, wenn die Seite wirklich per JavaScript läuft. Lädt React nicht
+  // (z. B. bei Suchmaschinen mit begrenztem Ladebudget), bleiben alle Inhalte sichtbar.
+  const guardHead = '<script>document.documentElement.classList.add(\'app-ready\')</script>\n' +
+    '<style>html:not(.app-ready) .reveal{opacity:1!important;transform:none!important}</style>\n';
+  const guardBody = '<script>if(!window.Header)document.documentElement.classList.remove(\'app-ready\')</script>\n';
+  return html
+    .replace('<div id="root"></div>', `<div id="root">${rendered}</div>`)
+    .replace('</head>', guardHead + '</head>')
+    .replace(/<\/body>(?![\s\S]*<\/body>)/, guardBody + '</body>');
 }
 
 function pageUrl(rel) {
