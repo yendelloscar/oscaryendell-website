@@ -390,7 +390,7 @@ function About() {
     className: "about__accent about__accent--teal"
   }, "Armutssensibilit\xE4t"), ": Nachdem ich selbst in Armut aufgewachsen bin, habe ich in Flensburg erst Bildungswissenschaften und dann Transformationsstudien studiert, stets mit einem Fokus darauf, wie Armut Bildungskarrieren und Teilhabe beeinflusst. An der Universit\xE4t Mannheim habe ich meine Doktorarbeit zu armuts\xADbezogenen Vorstellungen von Lehrkr\xE4ften und zu armuts\xADbezogenen Interaktionen in Schulen geschrieben. 2021 ist hieraus eine Freiberuflichkeit entstanden, in der ich Fortbildungen, Workshops und Beratungsleistungen f\xFCr Schulen, Kommunen, Tr\xE4ger, Vereine und Stiftungen zur Armutssensibilit\xE4t anbiete."), React.createElement("p", null, "Parallel dazu habe ich meine Leidenschaft f\xFCr ", React.createElement("span", {
     className: "about__accent about__accent--clay"
-  }, "Organisationsentwicklung"), " entdeckt: Im Projekt \"Schule macht Stark\" habe ich Schulen zu Ihrer Organisationsentwicklung und Sozialraumarbeit beraten. Im CHANCEN-Verbund habe ich L\xE4nder in der Begleitung von Startchancen-Schulen beraten. Zuletzt habe ich eine Fortbildung zum agilen Projektmanagement (IHK-zertifiziert) absolviert, da ein gutes Projektmanagement unerl\xE4sslich ist, um Ver\xE4nderungen nachhaltig in Organisationen zu implementieren."), React.createElement("p", null, "Aktuell \xFCbernehme ich das operative Stiftungsmanagement der ", React.createElement("a", {
+  }, "Organisationsentwicklung"), " entdeckt: Im Projekt \u201ESchule macht Stark\u201C habe ich Schulen zu Ihrer Organisationsentwicklung und Sozialraumarbeit beraten. Im CHANCEN-Verbund habe ich L\xE4nder in der Begleitung von Startchancen-Schulen beraten. Zuletzt habe ich eine Fortbildung zum agilen Projektmanagement (IHK-zertifiziert) absolviert, da ein gutes Projektmanagement unerl\xE4sslich ist, um Ver\xE4nderungen nachhaltig in Organisationen zu implementieren."), React.createElement("p", null, "Aktuell \xFCbernehme ich das operative Stiftungsmanagement der ", React.createElement("a", {
     href: "https://www.hanne-landgraf-stiftung.de",
     target: "_blank",
     rel: "noopener"
@@ -462,7 +462,7 @@ function Voices() {
     "aria-hidden": "true"
   }, "\""), React.createElement("div", {
     className: `voice__quote ${it.placeholder ? 'voice__quote--placeholder' : ''}`
-  }, "\u201E", it.quote, "\""), React.createElement("div", {
+  }, "\u201E", it.quote, "\u201C"), React.createElement("div", {
     className: "voice__attr"
   }, React.createElement("div", {
     className: "voice__name"
@@ -720,9 +720,9 @@ function Contact() {
     placeholder: "Termin, Anzahl Teilnehmende, gew\xFCnschtes Thema \u2026"
   })), React.createElement("p", {
     className: "contact__consent"
-  }, "Mit dem Absenden stimme ich zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise zum Datenschutz finden Sie ", React.createElement("a", {
+  }, "Mit dem Absenden stimme ich zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise zum Datenschutz finden Sie in der ", React.createElement("a", {
     href: "datenschutz.html"
-  }, "hier"), "."), error && React.createElement("p", {
+  }, "Datenschutzerkl\xE4rung"), "."), error && React.createElement("p", {
     className: "contact__error",
     role: "alert"
   }, "Die Nachricht konnte leider nicht gesendet werden. Bitte schreiben Sie mir direkt an ", React.createElement("a", {
@@ -772,7 +772,7 @@ function SiteFooter({
     className: "brand__tag"
   }, "Armutssensibilit\xE4t in p\xE4dagogischen Kontexten")))), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "FORMATE"), React.createElement("a", {
+  }, React.createElement("h3", null, "FORMATE"), React.createElement("a", {
     href: `${base}index.html#angebot`
   }, "Schulinterne Fortbildungen"), React.createElement("a", {
     href: `${base}index.html#angebot`
@@ -782,7 +782,7 @@ function SiteFooter({
     href: `${base}index.html#angebot`
   }, "Materialentwicklung")), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "Forschung"), React.createElement("a", {
+  }, React.createElement("h3", null, "Forschung"), React.createElement("a", {
     href: `${base}blog/index.html`
   }, "Blog"), React.createElement("a", {
     href: `${base}index.html#person`
@@ -790,7 +790,7 @@ function SiteFooter({
     href: `${base}index.html#termine`
   }, "Termine")), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "Rechtliches"), React.createElement("a", {
+  }, React.createElement("h3", null, "Rechtliches"), React.createElement("a", {
     href: `${base}impressum.html`
   }, "Impressum"), React.createElement("a", {
     href: `${base}datenschutz.html`

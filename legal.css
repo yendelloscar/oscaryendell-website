@@ -14,7 +14,7 @@
 .legal__divider { width: 40px; height: 2px; background: var(--clay); margin: 28px 0 8px; }
 
 .legal__updated {
-  font: 400 14px/1.5 var(--font-body); color: var(--ink-mute);
+  font: 400 14px/1.5 var(--font-body); color: var(--ink-soft);
   margin-bottom: 36px; font-style: italic;
 }
 
@@ -51,7 +51,7 @@
 .legal__contact-card p { margin-bottom: 0; }
 
 .legal__notice {
-  font: 400 13px/1.7 var(--font-body); color: var(--ink-mute);
+  font: 400 13px/1.7 var(--font-body); color: var(--ink-soft);
   letter-spacing: .01em; background: var(--paper-soft);
   border-left: 3px solid var(--ink-line); padding: 14px 18px;
   border-radius: 0 var(--r-sm, 8px) var(--r-sm, 8px) 0; margin-bottom: 16px;
@@ -61,7 +61,7 @@
 .legal__source {
   margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--ink-line);
 }
-.legal__source p { font: 400 14px/1.5 var(--font-body); color: var(--ink-mute); margin: 0; }
+.legal__source p { font: 400 14px/1.5 var(--font-body); color: var(--ink-soft); margin: 0; }
 
 .legal__back {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 40px;

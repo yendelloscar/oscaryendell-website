@@ -254,7 +254,7 @@ function SiteFooter({
     className: "brand__tag"
   }, "Armutssensibilit\xE4t in p\xE4dagogischen Kontexten")))), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "FORMATE"), React.createElement("a", {
+  }, React.createElement("h3", null, "FORMATE"), React.createElement("a", {
     href: `${base}index.html#angebot`
   }, "Schulinterne Fortbildungen"), React.createElement("a", {
     href: `${base}index.html#angebot`
@@ -264,7 +264,7 @@ function SiteFooter({
     href: `${base}index.html#angebot`
   }, "Materialentwicklung")), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "Forschung"), React.createElement("a", {
+  }, React.createElement("h3", null, "Forschung"), React.createElement("a", {
     href: `${base}blog/index.html`
   }, "Blog"), React.createElement("a", {
     href: `${base}index.html#person`
@@ -272,7 +272,7 @@ function SiteFooter({
     href: `${base}index.html#termine`
   }, "Termine")), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("h4", null, "Rechtliches"), React.createElement("a", {
+  }, React.createElement("h3", null, "Rechtliches"), React.createElement("a", {
     href: `${base}impressum.html`
   }, "Impressum"), React.createElement("a", {
     href: `${base}datenschutz.html`
