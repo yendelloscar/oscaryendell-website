@@ -26,12 +26,24 @@
 
   --ochre: #D9A441;
   --ochre-soft: #F2E0B6;
+  --ochre-deep: #8A6416;
+  --ochre-wash: #FAF1DC;
 
   --moss: #6B8E5A;
   --moss-soft: #D6E2CC;
+  --moss-deep: #4F6B41;
 
   --plum: #7A4A6B;
   --plum-soft: #E2D2DD;
+
+  /* === Eyebrow kinds (Design System) === */
+  --eyebrow-organisatorisches: var(--ink-soft);
+  --eyebrow-input: var(--teal);
+  --eyebrow-aufgabe: var(--plum);
+  --eyebrow-praxisbeispiel: var(--clay);
+  --eyebrow-feedback: var(--moss-deep);
+  --eyebrow-literatur: var(--ochre-deep);
+  --eyebrow-kapitel: var(--teal-deep);
 
   /* === Semantic === */
   --bg: var(--paper);
