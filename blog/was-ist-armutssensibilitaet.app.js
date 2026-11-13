@@ -149,10 +149,10 @@ function Header({ base = '', current = '' }) {
       h('button', {
         className: 'masthead__menu', type: 'button', 'aria-expanded': open, 'aria-controls': 'hauptnavigation',
         onClick: () => setOpen(!open)
-      }, h(Icon, { name: open ? 'close' : 'menu', size: 18 }), open ? 'Schließen' : 'Menü'),
+      }, h(Icon, { name: open ? 'close' : 'menu', size: 18 }), h('span', { className: 'masthead__menu-label' }, open ? 'Schließen' : 'Menü')),
       h('nav', { id: 'hauptnavigation', className: 'masthead__nav' + (open ? ' is-open' : ''), 'aria-label': 'Hauptnavigation' },
         links.map(l => h('a', { key: l.href, href: l.href, 'aria-current': current && l.id === current ? 'page' : undefined }, l.label)),
-        h('a', { className: 'button button--act', href: home + '#kontakt' }, 'Anfrage senden'))));
+        h('a', { className: 'button button--act', href: home + '#kontakt' }, 'Format anfragen'))));
 }
 window.Header = Header;
 })();

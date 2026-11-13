@@ -143,7 +143,7 @@ const GLYPHS = {
   blatt: { w: 34, h: 44, d: 'M9 1h24v34H9zM5 5h2v34h22v2H5zM1 9h2v34h22v1H1z' }
 };
 
-function Glyph({ kind, tone = 'ink', part = 1, title }) {
+function Glyph({ kind, tone = 'ink', part = 1, title, rest }) {
   const g = GLYPHS[kind];
   const id = React.useId ? React.useId().replace(/:/g, '') : kind + Math.random().toString(36).slice(2);
   const path = (cls, clip, key) => h('path', { key, d: g.d, className: cls, fillRule: g.rule, clipPath: clip });
@@ -155,7 +155,7 @@ function Glyph({ kind, tone = 'ink', part = 1, title }) {
     'aria-label': title
   },
     part < 1 && h('defs', null, h('clipPath', { id: 'c' + id }, h('rect', { x: 0, y: 0, width: g.w * part, height: g.h }))),
-    part < 1 ? [path(tone === 'ink' ? 'fill-ghost' : 'fill-ink', null, 'rest'), path('fill-' + tone, `url(#c${id})`, 'teil')] : path('fill-' + tone, null)
+    part < 1 ? [path(tone === 'ink' || rest === 'ghost' ? 'fill-ghost' : 'fill-ink', null, 'rest'), path('fill-' + tone, `url(#c${id})`, 'teil')] : path('fill-' + tone, null)
   );
 }
 
@@ -177,7 +177,7 @@ function CountRow({ kind, total, marked = 0, tone = 'petrol', restTone = 'ink', 
     const rest = marked - i;
     const part = rest >= 1 ? 1 : rest > 0 ? rest : 0;
     items.push(h('li', { key: i, style: { '--i': i } },
-      part === 1 ? h(Glyph, { kind, tone }) : part > 0 ? h(Glyph, { kind, tone, part }) : h(Glyph, { kind, tone: restTone })));
+      part === 1 ? h(Glyph, { kind, tone }) : part > 0 ? h(Glyph, { kind, tone, part, rest: restTone }) : h(Glyph, { kind, tone: restTone })));
   }
   return h('ol', { ref, className: 'count-row count-row--' + kind + ' ' + className, role: 'img', 'aria-label': label }, items);
 }
@@ -210,13 +210,15 @@ function Header() {
         h('span', { className: 'brand__text' },
           h('span', { className: 'brand__name' }, 'Dr. Oscar Yendell'),
           h('span', { className: 'brand__tag' }, 'Armutssensibilität in pädagogischen Kontexten'))),
-      h('button', {
-        className: 'masthead__menu', type: 'button', 'aria-expanded': open, 'aria-controls': 'hauptnavigation',
-        onClick: () => setOpen(!open)
-      }, h(Icon, { name: open ? 'close' : 'menu', size: 18 }), open ? 'Schließen' : 'Menü'),
+      h('div', { className: 'masthead__tools' },
+        h('a', { className: 'button button--act masthead__quick', href: '#kontakt' }, 'Anfragen'),
+        h('button', {
+          className: 'masthead__menu', type: 'button', 'aria-expanded': open, 'aria-controls': 'hauptnavigation',
+          onClick: () => setOpen(!open)
+        }, h(Icon, { name: open ? 'close' : 'menu', size: 18 }), h('span', { className: 'masthead__menu-label' }, open ? 'Schließen' : 'Menü'))),
       h('nav', { id: 'hauptnavigation', className: 'masthead__nav' + (open ? ' is-open' : ''), 'aria-label': 'Hauptnavigation' },
         links.map(l => h('a', { key: l.href, href: l.href, onClick: () => setOpen(false) }, l.label)),
-        h('a', { className: 'button button--act', href: '#kontakt', onClick: () => setOpen(false) }, 'Anfrage senden'))));
+        h('a', { className: 'button button--act', href: '#kontakt', onClick: () => setOpen(false) }, 'Format anfragen'))));
 }
 window.Header = Header;
 })();
@@ -224,7 +226,7 @@ window.Header = Header;
 /* components/Hero.jsx */
 ;(function(){
 const h = React.createElement;
-const FORMATE = ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop', 'Vortrag', 'Materialentwicklung', 'Anderes / Beratung'];
+const FORMATE = ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung'];
 
 function prefill(e) {
   e.preventDefault();
@@ -258,16 +260,15 @@ function Hero() {
         h('div', { className: 'opening__copy' },
           h('h1', { id: 'titel', className: 'display' }, 'Schule armuts­sensibel gestalten.'),
           h('p', { className: 'opening__lede' },
-            'Wissenschaftlich fundiert, für den Schulalltag gemacht. Ich arbeite mit Lehrkräften, Schulleitungen, Sozialarbeiter*innen und kommunalen Bildungsakteur*innen. Gemeinsam übersetzen wir Forschung zur Armutssensibilität in konkrete Schritte vor Ort.')),
-        h('form', { className: 'quick-ask', onSubmit: prefill, 'aria-labelledby': 'quick-ask-titel' },
-          h('h2', { id: 'quick-ask-titel', className: 'quick-ask__title' }, 'Format anfragen'),
+            'Wissenschaftlich fundiert, für Schule und Sozialraum gemacht. Ich bin Dr. Oscar Yendell, selbst in Armut aufgewachsen und promoviert zu Armut im Schulkontext. Bundesweit begleite ich Schulen, Kommunen, Träger, Vereine und Stiftungen dabei, Forschung zur Armutssensibilität in konkrete Schritte vor Ort zu übersetzen.')),
+        h('form', { className: 'quick-ask', onSubmit: prefill, 'aria-label': 'Format anfragen' },
           h('label', { className: 'field' }, h('span', null, 'Einrichtung'),
             h('input', { name: 'einrichtung', autoComplete: 'organization', placeholder: 'Schule, Kommune, Träger …' })),
           h('label', { className: 'field' }, h('span', null, 'Format'),
             h('select', { name: 'format', defaultValue: '' },
               h('option', { value: '' }, 'Noch offen'),
               FORMATE.map(f => h('option', { key: f }, f)))),
-          h('button', { className: 'button button--act button--wide', type: 'submit' }, 'Weiter zur Anfrage'),
+          h('button', { className: 'button button--act button--wide', type: 'submit' }, 'Format anfragen'),
           h('p', { className: 'quick-ask__note' }, 'Planung am besten 3 bis 6 Monate im Voraus.')))));
 }
 window.Hero = Hero;
@@ -278,13 +279,13 @@ window.Hero = Hero;
 const h = React.createElement;
 function Offers() {
   const items = [
-    { glyphs: ['schule'], title: 'Schulinterne Fortbildungen',
+    { glyphs: ['schule'], example: [0, 'Grundschule, Ludwigshafen'], title: 'Schulinterne Fortbildungen',
       body: 'Ein gemeinsamer Tag mit Ihrem (multiprofessionellen) Kollegium: Wie beeinflusst Armut das Aufwachsen unserer Schüler*innen? In welchen Momenten wird Armut in unserer Schule überhaupt relevant? Wie können wir den identifizierten Armutsfolgen an unserer Schule begegnen? Gemeinsam erarbeiten wir konkrete Ansätze für Sie vor Ort.' },
-    { glyphs: ['rathaus'], title: 'Kommunale Fortbildungen',
+    { glyphs: ['rathaus'], example: [1, 'Landschaftsverband Rheinland, Köln'], title: 'Kommunale Fortbildungen',
       body: 'Ein gemeinsamer Tag mit mehreren Institutionen (bspw. Schulvertreter*innen, kommunale Bildungsakteur*innen und Partner*innen im Sozialraum): Wie beeinflusst Armut das Aufwachsen im Sozialraum? Welche Präventionsketten und -netzwerke gibt es? Gemeinsam erarbeiten wir, wie Armutsfolgen institutionsübergreifend vor Ort aufgefangen werden können.' },
-    { glyphs: ['pult'], title: 'Workshops & Vorträge',
+    { glyphs: ['pult'], example: [2, 'ArbeiterKind.de, online'], title: 'Workshops & Vorträge',
       body: 'Online oder vor Ort. Impulsformate für Fachtage, Kommunen, Vereine und Stiftungen. Vom 60-Minuten-Vortrag bis hin zu längeren Workshops.' },
-    { glyphs: ['blatt'], title: 'Materialentwicklung',
+    { glyphs: ['blatt'], example: [5, 'Stiftung Lernen durch Engagement'], title: 'Materialentwicklung',
       body: 'Handreichungen, Arbeitsblätter, Checklisten, Reflexionsbögen, Materialien zur Sozialraumbegehung, passgenau für die Bedarfe der Nutzer*innen.' }
   ];
   return h('section', { className: 'band', id: 'angebot', 'aria-labelledby': 'angebot-titel' },
@@ -296,11 +297,13 @@ function Offers() {
         items.map(it => h('li', { key: it.title, className: 'formats__item' },
           h('div', { className: 'formats__sign', 'aria-hidden': 'true' }, it.glyphs.map((g, i) => h(Glyph, { key: i, kind: g }))),
           h('h3', { className: 'formats__title' }, it.title),
-          h('p', { className: 'formats__body' }, it.body)))),
+          h('div', { className: 'formats__text' },
+            h('p', { className: 'formats__body' }, it.body),
+            h('a', { className: 'formats__example', href: '#einblick-' + it.example[0] + '-zeile' }, 'Beispiel ansehen: ' + it.example[1]))))),
       h('p', { className: 'band__aside' },
         h('strong', null, 'Sie haben Interesse an einem gemeinsamen Format oder weitere Ideen?'),
         ' Schreiben Sie mir, gerne steigen wir gemeinsam in die Planung ein. ',
-        h('a', { href: '#kontakt' }, 'Format gemeinsam entwickeln'))));
+        h('a', { href: '#kontakt' }, 'Format anfragen'))));
 }
 window.Offers = Offers;
 })();
@@ -318,28 +321,20 @@ function Effect() {
             h('div', { className: 'chart--money__rows' },
               h('div', { className: 'family', 'aria-hidden': 'true' },
                 h(Glyph, { kind: 'erwachsen' }), h(Glyph, { kind: 'erwachsen' }), h(Glyph, { kind: 'kind' }), h(Glyph, { kind: 'kind' })),
-              h(CountRow, { kind: 'schein', total: 31, marked: 30.34, tone: 'ink',
+              h(CountRow, { kind: 'schein', total: 31, marked: 30.34, tone: 'petrol', restTone: 'ghost',
                 label: 'Bildstatistik: 30,34 Geldscheine zu je 100 Euro, zusammen 3.034 Euro.' })),
             h('figcaption', { className: 'chart__key' },
               h('ul', { className: 'chart__legend' },
-                h('li', null, h('span', { className: 'key-sign key-sign--wide', 'aria-hidden': 'true' }, h(Glyph, { kind: 'schein' })), '1 Schein = 100 € netto im Monat')),
+                h('li', null, h('span', { className: 'key-sign key-sign--wide', 'aria-hidden': 'true' }, h(Glyph, { kind: 'schein', tone: 'petrol' })), '1 Schein = 100 € netto im Monat')),
               h('span', { className: 'chart__fact' },
                 'Eine Familie mit zwei Erwachsenen und zwei Kindern unter 14 Jahren gilt als armutsgefährdet, wenn ihr weniger als ',
                 h('strong', null, '3.034 € netto im Monat'), ' zur Verfügung stehen ', h(Cite, { id: 'destatis' }, 'Statistisches Bundesamt, 2026'),
                 '. Von diesem Betrag müssen auch Ausgaben für schulische und gesellschaftliche Teilhabe bestritten werden.')))),
       h('div', { className: 'finding' },
         h('h3', { className: 'finding__title' }, 'Wenn Schulen armutsbedingte Hürden abbauen, lernen alle Kinder besser.'),
-        h('figure', { className: 'chart chart--effect' },
-        h(CountRow, { kind: 'kind', total: 20, marked: 4.7, className: 'count-row--rising',
-          label: 'Bildstatistik: dieselben 20 Zeichen wie oben, 4,7 davon hervorgehoben. Über jedem Zeichen ein Pfeil nach oben: Die Leistungen verbessern sich für alle Kinder.' }),
-        h('figcaption', { className: 'chart__key' },
-          h('ul', { className: 'chart__legend' },
-            h('li', null, h('span', { className: 'key-sign', 'aria-hidden': 'true' }, h(Glyph, { kind: 'kind', tone: 'petrol' })), 'Kinder in Armutslagen'),
-            h('li', null, h('span', { className: 'key-sign', 'aria-hidden': 'true' }, h(Glyph, { kind: 'kind' })), 'alle anderen Kinder'),
-            h('li', null, h('span', { className: 'key-rise', 'aria-hidden': 'true' }), 'bessere Leistungen')),
-          h('span', { className: 'chart__fact' },
-            'Eine Wirkungsstudie aus Nordostengland vergleicht Grundschulen mit und ohne Armuts-Audit. Wo Schulen armutsbedingte Hürden abbauen, verbessern sich die Leistungen – besonders in Mathematik und Lesen, und zwar für alle Kinder ',
-            h(Cite, { id: 'beeson' }, 'Beeson et al., 2024'), '.'))))));
+        h('p', { className: 'finding__statement' },
+          'Eine Wirkungsstudie aus Nordostengland vergleicht Grundschulen mit und ohne Armuts-Audit. Wo Schulen armutsbedingte Hürden abbauen, verbessern sich die Leistungen – besonders in Mathematik und Lesen, und zwar für alle Kinder.'),
+        h('p', { className: 'finding__source' }, 'Quelle: ', h(Cite, { id: 'beeson' }, 'Beeson et al., 2024')))));
 }
 window.Effect = Effect;
 })();
@@ -348,6 +343,7 @@ window.Effect = Effect;
 ;(function(){
 const h = React.createElement;
 function About() {
+  const [more, setMore] = React.useState(false);
   const steps = [
     ['Studium', 'Bildungswissenschaften und Transformationsstudien'],
     ['Promotion', 'Armut im Schulkontext, Mitarbeit in „Schule macht Stark“ und Startchancen'],
@@ -362,15 +358,25 @@ function About() {
       h('div', { className: 'person__copy' },
         h('h2', { id: 'person-titel', className: 'headline' }, 'Forschung trifft Klassenzimmer.'),
         h('p', { className: 'person__lede' }, 'Bildungswissenschaftler und Fortbildner an der Schnittstelle von Wissenschaft und Praxis.'),
+        h('ul', { className: 'person__keys' },
+          h('li', null, h('strong', null, 'Selbst in Armut aufgewachsen.'), ' Ich weiß, wie sich Armut im Schulalltag anfühlt.'),
+          h('li', null, h('strong', null, 'Promoviert zu Armut im Schulkontext.'), ' Universität Mannheim, zu armutsbezogenen Vorstellungen von Lehrkräften und Interaktionen in Schulen.'),
+          h('li', null, h('strong', null, 'Erfahren in Organisationsentwicklung.'), ' „Schule macht Stark“, CHANCEN-Verbund, Hanne-Landgraf-Stiftung.')),
         h('ol', { className: 'stations' }, steps.map(([ort, was]) => h('li', { key: ort }, h('strong', null, ort), h('span', null, was)))),
+        h('p', { className: 'person__closing' }, 'Konkret und evidenzbasiert, ohne erhobenen Zeigefinger.'),
+        h('button', { type: 'button', className: 'text-button person__more', 'aria-expanded': more, 'aria-controls': 'werdegang', onClick: () => setMore(!more) },
+          more ? 'Werdegang schließen' : 'Meinen Werdegang ausführlich lesen'),
+        h('div', { id: 'werdegang', className: 'person__story', hidden: !more },
         h('p', null, 'Meine Biografie führte mich in die Arbeit zur Armutssensibilität: Nachdem ich selbst in Armut aufgewachsen bin, habe ich in Flensburg erst Bildungswissenschaften und dann Transformationsstudien studiert, stets mit einem Fokus darauf, wie Armut Bildungskarrieren und Teilhabe beeinflusst. An der Universität Mannheim habe ich meine Doktorarbeit zu armutsbezogenen Vorstellungen von Lehrkräften und zu armutsbezogenen Interaktionen in Schulen geschrieben. 2021 ist hieraus eine Freiberuflichkeit entstanden, in der ich Fortbildungen, Workshops und Beratungsleistungen für Schulen, Kommunen, Träger, Vereine und Stiftungen zur Armutssensibilität anbiete.'),
         h('p', null, 'Parallel dazu habe ich meine Leidenschaft für Organisationsentwicklung entdeckt: Im Projekt „Schule macht Stark“ habe ich Schulen zu ihrer Organisationsentwicklung und Sozialraumarbeit beraten. Im CHANCEN-Verbund habe ich Länder in der Begleitung von Startchancen-Schulen beraten. Zuletzt habe ich eine Fortbildung zum agilen Projektmanagement (IHK-zertifiziert) absolviert, da ein gutes Projektmanagement unerlässlich ist, um Veränderungen nachhaltig in Organisationen zu implementieren.'),
         h('p', null, 'Aktuell übernehme ich das operative Stiftungsmanagement der ',
           h('a', { href: 'https://www.hanne-landgraf-stiftung.de', target: '_blank', rel: 'noopener' }, 'Hanne-Landgraf-Stiftung'),
           ', die sich gegen Kinder- und Jugendarmut in Karlsruhe einsetzt. Neben Projektkoordination, Fundraising und Kommunikation baue ich Netzwerke und Kooperationen mit Bildungseinrichtungen sowie zivilgesellschaftlichen Akteur*innen auf, damit Maßnahmen zur Bewältigung von Armutsfolgen umgesetzt werden.'),
-        h('p', null, 'In meinen Formaten verbinde ich meine Biografie mit wissenschaftlichen Erkenntnissen zur Armutssensibilität und meiner Expertise in der Organisationsentwicklung sowie der organisationsübergreifenden Kooperation. Dabei habe ich stets ein Auge darauf, was Schulleitungen, Lehrkräfte, Sozialarbeiter*innen und weitere Bildungsakteur*innen jeden Tag leisten.'),
-        h('p', { className: 'person__closing' }, 'Konkret und evidenzbasiert, ohne erhobenen Zeigefinger.'),
-        h('a', { className: 'button button--line', href: '#kontakt' }, 'Kennenlerngespräch vereinbaren'))));
+        h('p', null, 'In meinen Formaten verbinde ich meine Biografie mit wissenschaftlichen Erkenntnissen zur Armutssensibilität und meiner Expertise in der Organisationsentwicklung sowie der organisationsübergreifenden Kooperation. Dabei habe ich stets ein Auge darauf, was Schulleitungen, Lehrkräfte, Sozialarbeiter*innen und weitere Bildungsakteur*innen jeden Tag leisten.')),
+        h('a', { className: 'button button--line', href: '#kontakt', onClick: () => {
+          const t = document.querySelector('#kontakt textarea[name="anliegen"]');
+          if (t && !t.value) t.value = 'Ich wünsche mir ein Kennenlerngespräch.';
+        } }, 'Kennenlerngespräch anfragen'))));
 }
 window.About = About;
 })();
@@ -383,9 +389,9 @@ function Voices() {
   const items = [
     { quote: 'Von der Vorbereitung über die Durchführung bis zur Nachbereitung war es eine produktive Zusammenarbeit. Man ging individuell und unkompliziert auf unsere Vorstellungen ein – Schulleitung und Kollegium waren sehr angetan. Herr Yendell und seine Kollegin waren äußerst kompetent, einfühlsam und insgesamt überzeugend.', name: 'Christoph Timmerhues', role: 'stellv. Schulleitung · Grundschule · Rheinland-Pfalz' },
     { quote: 'Oscar Yendell kann komplexe Themen verständlich machen, ohne sie zu vereinfachen, und bringt in seinen Vorträgen wissenschaftliche Erkenntnisse und praktische Perspektiven überzeugend zusammen. Ich erlebe die nun mehrjährige Zusammenarbeit als fachlich fundiert, professionell und zugleich sehr nahbar. Seine persönliche Geschichte sorgt für zusätzliche Glaubwürdigkeit, ohne im Vordergrund zu stehen.', name: 'Jaana Espenlaub', role: 'ArbeiterKind.de, Baden-Württemberg' },
+    { quote: 'Als Teilnehmer der Fortbildung habe ich sehr davon profitiert, Armutssensibilität nicht nur theoretisch, sondern anhand konkreter Situationen aus unserem Arbeitsalltag zu besprechen. Für die Koordination der Schulsozialarbeit in unserer Kommune haben wir daraus direkt umsetzbare Ansätze mitnehmen können, die wir künftig umsetzen wollen.', name: 'Markus Bender', role: 'Koordination Schulsozialarbeit, Bayern' },
     { quote: 'Die Workshops zur Armutssensibilität, die Oscar Yendell bei uns gegeben hat, waren fachlich sehr fundiert und gleichzeitig nah an der Praxis der angehenden Lehrkräfte. Besonders wertvoll war, wie konkret die Inhalte an alltäglichen Beispielen ausgerichtet wurden.', name: 'Sandra Hoffmeister', role: 'Schulsozialarbeit, Niedersachsen' },
-    { quote: 'Die Zusammenarbeit mit Oscar Yendell bei der Entwicklung des Materials zur armutssensiblen Schulentwicklung war fachlich fundiert, verlässlich und immer mit klarem Blick für die schulische Praxis. Gemeinsam ist es uns gelungen, wissenschaftlich fundierte Perspektiven in ein strukturiertes und flexibel einsetzbares Arbeitsmaterial zu übersetzen. Das kostenlos zugängliche Material schließt damit eine bislang bestehende Lücke und unterstützt Schulen dabei, Armutssensibilität systematischer in den Blick zu nehmen und weiterzuentwickeln.', name: 'Mareike Fritz', role: 'Stiftung Lernen durch Engagement, Berlin' },
-    { quote: 'Als Teilnehmer der Fortbildung habe ich sehr davon profitiert, Armutssensibilität nicht nur theoretisch, sondern anhand konkreter Situationen aus unserem Arbeitsalltag zu besprechen. Für die Koordination der Schulsozialarbeit in unserer Kommune haben wir daraus direkt umsetzbare Ansätze mitnehmen können, die wir künftig umsetzen wollen.', name: 'Markus Bender', role: 'Koordination Schulsozialarbeit, Bayern' }
+    { quote: 'Die Zusammenarbeit mit Oscar Yendell bei der Entwicklung des Materials zur armutssensiblen Schulentwicklung war fachlich fundiert, verlässlich und immer mit klarem Blick für die schulische Praxis. Gemeinsam ist es uns gelungen, wissenschaftlich fundierte Perspektiven in ein strukturiertes und flexibel einsetzbares Arbeitsmaterial zu übersetzen. Das kostenlos zugängliche Material schließt damit eine bislang bestehende Lücke und unterstützt Schulen dabei, Armutssensibilität systematischer in den Blick zu nehmen und weiterzuentwickeln.', name: 'Mareike Fritz', role: 'Stiftung Lernen durch Engagement, Berlin' }
   ];
   const shown = showAll ? items : items.slice(0, 3);
   return h('section', { className: 'band', id: 'stimmen', 'aria-labelledby': 'stimmen-titel' },
@@ -408,16 +414,25 @@ window.Voices = Voices;
 const h = React.createElement;
 function Events() {
   const [openIdx, setOpenIdx] = React.useState(null);
+  React.useEffect(() => {
+    const fromHash = () => {
+      const m = /^#einblick-(\d+)-zeile$/.exec(window.location.hash);
+      if (m) setOpenIdx(Number(m[1]));
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+    return () => window.removeEventListener('hashchange', fromHash);
+  }, []);
   const formats = [
     { glyph: 'schule', label: 'Schulinterne Fortbildung', where: 'Grundschule, Ludwigshafen', title: 'Studientag zur Armutssensibilität im schulischen Alltag',
       desc: 'Beginnend haben wir uns damit auseinandergesetzt, welche Dimensionen Armutssensibilität umfasst. Anschließend haben wir eigene Vorstellungen und Fehlannahmen in Bezug auf Armut (zum Teil spielerisch) reflektiert. Darauffolgend haben wir identifiziert, welche Rolle Armut im Schulalltag (nicht) spielt (bspw. Unterricht, Verpflegung, Ausflüge, Elternarbeit). Unter Bezugnahme auf konkrete Praxisbeispiele anderer Schulen haben wir erarbeitet, wie die Schule die identifizierten Armutsfolgen auffangen kann und wo eine Zusammenarbeit mit außerschulischen Partner*innen sinnvoll ist. Am Ende des Tages standen konkrete Vorgehensweisen fest, um in den kommenden Wochen eine armutssensible Praxis in den identifizierten Bereichen zu implementieren.' },
     { glyph: 'rathaus', label: 'Kommunale Fortbildung', where: 'Landschaftsverband Rheinland, Köln', title: 'Armutssensible Praxis als Teil der kommunalen Präventionskette',
       desc: 'Nachdem wir zu Beginn auf die Dimensionen von Armutssensibilität eingegangen sind, haben wir uns anschließend damit beschäftigt, wie Armut das Aufwachsen von Kindern und Jugendlichen in unterschiedlichen Lebensbereichen beeinflusst. Mit Blick auf konkrete armutssensible Praxisbeispiele anderer Kommunen haben wir anschließend erarbeitet, welche Rolle Schulen und welche Rolle weitere Akteur*innen (bspw. Jugendämter oder Jobcenter) in Bezug auf Armutssensibilität einnehmen. Am Ende des Tages bestand ein geteiltes Verständnis darüber, wer welche Armutsfolgen (nicht) auffangen kann und welche Kooperationsmöglichkeiten zwischen schulischen und außerschulischen Akteur*innen kommunale Präventionsketten in Bezug auf Armutssensibilität ermöglichen.' },
-    { glyph: 'pult', label: 'Workshop', where: 'ArbeiterKind.de, online', title: 'Armutsbezogene Vorstellungen von Lehrkräften',
+    { glyph: 'pult', label: 'Workshops & Vorträge', where: 'Workshop · ArbeiterKind.de, online', title: 'Armutsbezogene Vorstellungen von Lehrkräften',
       desc: 'Zu Beginn haben wir uns unter Bezugnahme auf das ökonomische, soziale und kulturelle Kapital damit auseinandergesetzt, wie ein Mangel der Kapitalsorten Bildungskarrieren negativ beeinflusst. Anschließend haben wir aktuelle Studien diskutiert, die zeigen, wie negative armutsbezogene Vorstellungen von Lehrkräften zu verringerten Leistungserwartungen und -bewertungen führen können. Abschließend wurden konkrete Möglichkeiten für den Schulalltag vorgestellt, negative Vorstellungen abzubauen. Dabei diskutierten die Teilnehmer*innen, wie dies in den Schulalltag implementiert werden kann.' },
-    { glyph: 'pult', label: 'Vortrag', where: 'Bildungskonferenz, Frankenthal', title: 'Armutssensibilität verändert die Perspektive',
+    { glyph: 'pult', label: 'Workshops & Vorträge', where: 'Vortrag · Bildungskonferenz, Frankenthal', title: 'Armutssensibilität verändert die Perspektive',
       desc: 'Auf der Bildungskonferenz der Regionalagentur Kommunales Bildungsmanagement Rheinland-Pfalz – Saarland habe ich im Pecha-Kucha-Format die drei Ebenen der Armutssensibilität vorgestellt: die persönliche Haltung von Fach- und Lehrkräften, armutssensible Abläufe in der Organisation und strukturelle Zugänge im Sozialraum. Entlang konkreter Beispiele habe ich gezeigt, an welchen Stellen Schulen und kommunale Bildungsakteur*innen ansetzen können, um Armutsfolgen aufzufangen – und wie sich der Perspektivwechsel auf das eigene Handeln auswirkt.' },
-    { glyph: 'pult', label: 'Seminar', where: 'Karlsruher Institut für Technologie', title: 'Klassismus und soziale Ungleichheit im Bildungssystem: Von der theoretischen Analyse zur armutssensiblen Praxis',
+    { glyph: 'pult', label: 'Workshops & Vorträge', where: 'Seminar · Karlsruher Institut für Technologie', title: 'Klassismus und soziale Ungleichheit im Bildungssystem: Von der theoretischen Analyse zur armutssensiblen Praxis',
       desc: 'Das Seminar richtete sich im Studium Generale an Studierende aller Fachrichtungen und setzte keine bildungswissenschaftlichen Vorkenntnisse voraus. Ausgehend von den eigenen Bildungserfahrungen der Studierenden erarbeiteten wir theoretische Zugänge zu Bildungsverständnissen, zu den Kapitalsorten und zum Habitusbegriff nach Pierre Bourdieu sowie zur Wirkung von Klassismus auf struktureller und interaktionaler Ebene. Ein besonderer Fokus lag darauf, wie armutsbezogene Stereotype entstehen und unbewusst wirken. Im Praxisteil stand das Konzept der Armutssensibilität mit seinen drei Ebenen im Mittelpunkt: Die Studierenden reflektierten ihre (zukünftige) Rolle im privaten, universitären und beruflichen Kontext und erarbeiteten, wie Armutssensibilität in den eigenen Alltag integriert werden kann.' },
     { glyph: 'blatt', label: 'Materialentwicklung', where: 'Stiftung Lernen durch Engagement', title: 'Armutssensible Haltung im Schulkontext',
       desc: 'Gemeinsam mit der Stiftung Lernen durch Engagement habe ich Material zur armutssensiblen Schulentwicklung mit einem besonderen Fokus auf eine armutssensible Haltung entwickelt. Das Material ist so konzipiert, dass es schulischen Akteur*innen sowohl einzeln als auch in Gruppensettings ermöglicht, an einer armutssensiblen Haltung zu arbeiten. Zudem leitet das Material hin zu einer Implementation von regelmäßigen Routinen und Methoden zur dauerhaften Förderung der Armutssensibilität. Im Material selbst werden ausschließlich praxisnahe Open-Access-Materialien zitiert, damit die Nutzer*innen selbstständig weiter recherchieren können.',
@@ -431,14 +446,14 @@ function Events() {
       h('ol', { className: 'ledger' },
         formats.map((f, i) => {
           const open = openIdx === i;
-          return h('li', { key: i, className: 'ledger__row' + (open ? ' is-open' : '') },
+          return h('li', { key: i, id: 'einblick-' + i + '-zeile', className: 'ledger__row' + (open ? ' is-open' : '') },
             h('div', { className: 'ledger__sign', 'aria-hidden': 'true' }, h(Glyph, { kind: f.glyph })),
             h('div', { className: 'ledger__meta' }, h('span', { className: 'ledger__label' }, f.label), h('span', null, f.where)),
             h('div', { className: 'ledger__main' },
               h('h3', { className: 'ledger__title' }, f.title),
               h('p', { id: 'einblick-' + i, className: 'ledger__desc', hidden: !open }, f.desc),
               h('div', { className: 'ledger__actions' },
-                h('button', { type: 'button', className: 'text-button', 'aria-expanded': open, 'aria-controls': 'einblick-' + i, onClick: () => setOpenIdx(open ? null : i) },
+                h('button', { type: 'button', className: 'text-button', 'aria-expanded': open, 'aria-controls': 'einblick-' + i, 'aria-label': (open ? 'Beschreibung schließen: ' : 'Ablauf lesen: ') + f.title, onClick: () => setOpenIdx(open ? null : i) },
                   open ? 'Beschreibung schließen' : 'Ablauf lesen'),
                 f.link && h('a', { href: f.link, target: '_blank', rel: 'noopener noreferrer' }, f.linkLabel))));
         }))));
@@ -495,14 +510,14 @@ function Contact() {
             h('p', null, 'Ich melde mich innerhalb von drei Werktagen bei Ihnen.'))
           : h(React.Fragment, null,
             h('div', { className: 'contact__row' },
-              h('label', { className: 'field' }, h('span', null, 'Name'), h('input', { required: true, name: 'name', autoComplete: 'name' })),
-              h('label', { className: 'field' }, h('span', null, 'E-Mail'), h('input', { required: true, name: 'email', type: 'email', autoComplete: 'email' }))),
+              h('label', { className: 'field' }, h('span', null, 'Name ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'name', autoComplete: 'name' })),
+              h('label', { className: 'field' }, h('span', null, 'E-Mail ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'email', type: 'email', autoComplete: 'email' }))),
             h('div', { className: 'contact__row' },
               h('label', { className: 'field' }, h('span', null, 'Einrichtung'), h('input', { name: 'einrichtung', autoComplete: 'organization', placeholder: 'Schule, Kommune, Träger …' })),
               h('label', { className: 'field' }, h('span', null, 'Format'),
                 h('select', { name: 'format', defaultValue: '' },
                   h('option', { value: '' }, 'Bitte wählen …'),
-                  ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop', 'Vortrag', 'Materialentwicklung', 'Anderes / Beratung'].map(o => h('option', { key: o }, o))))),
+                  ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung', 'Anderes oder noch offen'].map(o => h('option', { key: o }, o))))),
             h('label', { className: 'field' }, h('span', null, 'Anliegen'), h('textarea', { name: 'anliegen', rows: 5, placeholder: 'Termin, Anzahl Teilnehmende, gewünschtes Thema …' })),
             h('p', { className: 'contact__consent' }, 'Mit dem Absenden stimme ich zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise zum Datenschutz finden Sie in der ', h('a', { href: 'datenschutz.html' }, 'Datenschutzerklärung'), '.'),
             error && h('p', { className: 'contact__error', role: 'alert' }, 'Die Nachricht konnte leider nicht gesendet werden. Bitte schreiben Sie mir direkt an ', h('a', { href: 'mailto:mail@oscaryendell.de' }, 'mail@oscaryendell.de'), '.'),
@@ -556,7 +571,7 @@ function App() {
   return h(React.Fragment, null,
     h('a', { className: 'skip', href: '#inhalt' }, 'Zum Inhalt springen'),
     h(Header, null),
-    h('main', { id: 'inhalt' }, h(Hero, null), h(Offers, null), h(About, null), h(Effect, null), h(Voices, null), h(Events, null), h(BlogTeaser, null), h(Contact, null), h(Sources, null)),
+    h('main', { id: 'inhalt' }, h(Hero, null), h(Offers, null), h(About, null), h(Effect, null), h(Voices, null), h(Events, null), h(Contact, null), h(BlogTeaser, null), h(Sources, null)),
     h(SiteFooter, null));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(h(App, null));
