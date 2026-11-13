@@ -516,7 +516,7 @@ function Sources() {
       h('ol', null,
         h('li', { id: 'quelle-beeson' }, 'Beeson, M., Wildman, J. M., & Wildman, J. (2024). Does tackling poverty related barriers to education improve school outcomes? Evidence from the North East of England. ', h('i', null, 'Economics Letters, 236'), ', Artikel 111614. ', h('a', { href: 'https://doi.org/10.1016/j.econlet.2024.111614' }, 'https://doi.org/10.1016/j.econlet.2024.111614')),
         h('li', { id: 'quelle-eurostat' }, 'Eurostat. (2026). ', h('i', null, 'Persons at risk of poverty or social exclusion by age and sex (ilc_peps01n)'), ' [Datensatz]. Abgerufen am 13. November 2026 von ', h('a', { href: 'https://doi.org/10.2908/ILC_PEPS01N' }, 'https://doi.org/10.2908/ILC_PEPS01N')),
-        h('li', { id: 'quelle-destatis' }, 'Statistisches Bundesamt. (2026). ', h('i', null, 'Armutsgefährdungsschwelle (EU-SILC), Tabelle 12241-0002'), ' [Datensatz]. GENESIS-Online. Abgerufen am 13. November 2026 von ', h('a', { href: 'https://genesis.destatis.de/datenbank/online/statistic/12241/table/12241-0002' }, 'https://genesis.destatis.de/datenbank/online/statistic/12241/table/12241-0002')))));
+        h('li', { id: 'quelle-destatis' }, 'Statistisches Bundesamt. (2026). ', h('i', null, 'EU-SILC – Armutsgefährdungsschwelle (60%-Median): Deutschland, Jahre, Haushaltstyp'), ' (Tabelle 12241-0002) [Datensatz]. GENESIS-Online. Abgerufen am 13. November 2026 von ', h('a', { href: 'https://genesis.destatis.de/datenbank/online/statistic/12241/table/12241-0002' }, 'https://genesis.destatis.de/datenbank/online/statistic/12241/table/12241-0002')))));
 }
 window.Sources = Sources;
 })();
