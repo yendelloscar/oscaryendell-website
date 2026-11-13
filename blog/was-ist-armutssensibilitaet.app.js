@@ -96,32 +96,13 @@ const Icon = ({
 };
 function Reveal({
   children,
-  delay = 0,
   as: As = 'div',
   className = '',
+  delay,
   ...rest
 }) {
-  const ref = React.useRef(null);
-  const [shown, setShown] = React.useState(false);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setTimeout(() => setShown(true), delay);
-        io.disconnect();
-      }
-    }, {
-      threshold: 0,
-      rootMargin: '0px 0px -10% 0px'
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [delay]);
-  return React.createElement(As, _extends({
-    ref: ref,
-    className: `reveal ${shown ? 'in' : ''} ${className}`
-  }, rest), children);
+  // Früher ein Einblend-Effekt; heute nur noch ein schlichter Behälter.
+  return React.createElement(As, _extends({ className: className || undefined }, rest), children);
 }
 window.Icon = Icon;
 window.Reveal = Reveal;
@@ -195,7 +176,7 @@ function Article() {
     href: "index.html"
   }, "Zurück zum Blog"), React.createElement(Reveal, null, React.createElement("h1", {
     className: "article__title"
-  }, "Was ist Armutssensibilit\xE4t?"), React.createElement("div", {
+  }, "Was ist Armuts\xADsensibilit\xE4t?"), React.createElement("div", {
     className: "article__meta"
   }, React.createElement("span", null, "Grundlagen \xB7 01. Oktober 2026")), React.createElement("p", {
     className: "article__standfirst"
@@ -214,7 +195,7 @@ function Article() {
   }, "(Shevchuk & Glock, 2022)"), ". Werden entsprechende Situationen jedoch unbewusst durch die eigene stereotype Brille betrachtet, kann dies dazu f\xFChren, dass entsprechenden Kindern und Eltern eine negative und defizitorientierte Haltung entgegengebracht wird, wodurch deren enorme strukturelle Belastungen \xFCbersehen werden ", React.createElement("span", {
     className: "article__cite"
   }, "(Otto, 2026)"), "."), React.createElement("p", null, "F\xFCr ein wirksames und ressourcenorientiertes p\xE4dagogisches Handeln ist ein Perspektivwechsel daher hilfreich: Wir brauchen ", React.createElement("span", {
-    className: "article__accent article__accent--clay"
+    className: "article__accent"
   }, "Armutssensibilit\xE4t"), " ", React.createElement("span", {
     className: "article__cite"
   }, "(Holz, 2021)"), ". Diese erm\xF6glicht, eigene Stereotype zu hinterfragen und die professionelle Haltung sowie das eigene Handeln in der Einrichtung entsprechend weiterzuentwickeln. Wie Holz ", React.createElement("span", {
@@ -224,7 +205,7 @@ function Article() {
   }, "(2025)"), " betonen zudem, dass es sich bei einer armutssensiblen Haltung nicht nur um ein spekulatives emotionales Einf\xFChlen handelt. Es bedarf vielmehr eines fundierten professionellen Wissens und konkreter Einrichtungskonzepte, um angemessen auf die Lebenswirklichkeit armutsbetroffener Familien reagieren zu k\xF6nnen. Ein zentrales Leitprinzip lautet in diesem Kontext, dass Ungleiches ungleich behandelt werden muss, um armutsbedingte Unterschiede aktiv auszugleichen und allen Kindern Teilhabe zu erm\xF6glichen ", React.createElement("span", {
     className: "article__cite"
   }, "(Holz, 2023)"), ". Doch welche armutsbezogenen Ungleichheiten werden in der Forschung diskutiert?"), React.createElement("h2", null, "Forschung zu armutsbezogenen Ungleichheiten"), React.createElement("p", null, "Armut wird in Deutschland oftmals \xFCber den Begriff der ", React.createElement("span", {
-    className: "article__accent article__accent--teal"
+    className: "article__accent"
   }, "relativen Armut"), " oder den Erhalt von Transferleistungen (bspw. Neue Grundsicherung, ehemals B\xFCrgergeld) definiert ", React.createElement("span", {
     className: "article__cite"
   }, "(Goebel & Krause, 2018; Funcke & Menne, 2023)"), ". Relative Armut beschreibt eine Lebenslage, in der das Einkommen so gering ist (weniger als 60% des Medianeinkommens), dass ein Lebensstandard, der als selbstverst\xE4ndlich gilt, nicht erreichbar ist."), React.createElement("p", null, "Das Aufwachsen in dieser Realit\xE4t kann begrenzen, besch\xE4men und das soziale Leben erheblich beeinflussen ", React.createElement("span", {
@@ -258,13 +239,13 @@ function Article() {
   }, "(Funcke & Menne, 2023)"), "."), React.createElement("p", null, "Armutssensibilit\xE4t erfordert entsprechend, auf vielschichtige Benachteiligungen einzugehen und dabei dennoch einen ressourcenorientierten Blick auf Kinder und Familien zu richten. Um diesem Anspruch gerecht zu werden, kann Armutssensibilit\xE4t in drei Ebenen unterteilt werden."), React.createElement("div", {
     className: "article__levels"
   }, React.createElement("div", {
-    className: "article__level article__level--teal"
+    className: "article__level"
   }, React.createElement("h3", null, React.createElement("span", {
     className: "article__level-num"
   }, "1"), "Die pers\xF6nliche armutssensible Haltung"), React.createElement("p", null, "Armutssensibles Arbeiten beginnt bei einer fundierten Selbstreflexion ", React.createElement("span", {
     className: "article__cite"
   }, "(Otto, 2026)"), ". Es kann im Alltag sehr entlastend sein, eigene (unbewusste) Stereotype kritisch zu hinterfragen. Eine reflexiv-professionelle p\xE4dagogische Haltung blendet Armut nicht aus, sondern kann Ausgrenzungsmechanismen aktiv entgegentreten. Wir erkennen dabei an, dass Familien in Armutslagen unter enormem strukturellem Druck stehen k\xF6nnen und richten unseren Blick darauf, sie in ihren Potenzialen zu st\xE4rken.")), React.createElement("div", {
-    className: "article__level article__level--clay"
+    className: "article__level"
   }, React.createElement("h3", null, React.createElement("span", {
     className: "article__level-num"
   }, "2"), "Armutssensible organisatorische Abl\xE4ufe in der Einrichtung"), React.createElement("p", null, "Einrichtungen k\xF6nnen ihre t\xE4glichen Routinen so gestalten, dass sie bestehende Barrieren abbauen und Besch\xE4mung verhindern ", React.createElement("span", {
@@ -272,7 +253,7 @@ function Article() {
   }, "(Otto, 2026)"), ". Armut darf im p\xE4dagogischen Raum nicht offen zur Schau gestellt werden. Ein wirkungsvoller Ansatz ist beispielsweise die Einrichtung eines kooperativen Materialfundus ", React.createElement("span", {
     className: "article__cite"
   }, "(Otto, 2026)"), ". Dabei nutzen Einrichtungen grundlegende Lern- und Bastelmaterialien aus einem gemeinsamen Pool f\xFCr alle Kinder. Auf diese Weise lassen sich individuelle Bedarfe passgenau decken, ohne dass finanzielle Engp\xE4sse einzelner Familien sichtbar werden, was andernfalls zu einer sozialen Stigmatisierung f\xFChren k\xF6nnte.")), React.createElement("div", {
-    className: "article__level article__level--moss"
+    className: "article__level"
   }, React.createElement("h3", null, React.createElement("span", {
     className: "article__level-num"
   }, "3"), "Armutssensible strukturelle Zug\xE4nge und Vernetzung im Sozialraum"), React.createElement("p", null, "Selbst die engagiertesten Fachkr\xE4fte k\xF6nnen an ihre Grenzen sto\xDFen, wenn sie isoliert handeln. Armutssensibilit\xE4t gewinnt an Kraft durch eine institutions\xFCbergreifende Zusammenarbeit im Sozialraum ", React.createElement("span", {
@@ -280,17 +261,17 @@ function Article() {
   }, "(Otto, 2026)"), ". Sogenannte kommunale Pr\xE4ventionsketten verbinden die Angebote der Gesundheitsf\xF6rderung, der Kinder- und Jugendhilfe sowie von Bildungseinrichtungen systematisch miteinander ", React.createElement("span", {
     className: "article__cite"
   }, "(Richter-Kornweitz, 2024)"), ". Durch diese ressort\xFCbergreifende Vernetzung kann sichergestellt werden, dass Familien l\xFCckenlos begleitet werden und Kinder an den kritischen \xDCberg\xE4ngen im Bildungssystem nicht den Anschluss verlieren."))), React.createElement("h2", null, "Gemeinsam Armutssensibilit\xE4t in die Praxis \xFCbersetzen"), React.createElement("p", null, "Dieses Verst\xE4ndnis von Armutssensibilit\xE4t pr\xE4gt mein Arbeiten mit Schulen, Vereinen, Initiativen und Kommunen. Grundlage ist dabei f\xFCr mich immer, welche (unausgesprochenen) Stereotype Eltern und Kindern mit Armutserfahrungen entgegengebracht werden und wie ein sensibler sowie gleichzeitig ressourcenorientierter Blick erm\xF6glicht werden kann (", React.createElement("span", {
-    className: "article__level-ref article__level-ref--teal"
+    className: "article__level-ref article__level-ref"
   }, "Ebene 1"), "). Eine stetige Reflexion dieser Haltung erm\xF6glicht dar\xFCber hinaus, einrichtungsinterne armutssensible Abl\xE4ufe zu implementieren (", React.createElement("span", {
-    className: "article__level-ref article__level-ref--clay"
+    className: "article__level-ref article__level-ref"
   }, "Ebene 2"), ") sowie einrichtungs\xFCbergreifende und kommunale Vernetzung im Sozialraum armutssensibel zu gestalten (", React.createElement("span", {
-    className: "article__level-ref article__level-ref--moss"
+    className: "article__level-ref article__level-ref"
   }, "Ebene 3"), "). Dabei ist mir wichtig zu betonen:"), React.createElement("p", {
     className: "article__pullquote"
   }, "Armutssensibilit\xE4t ist kein Zustand, den man einmalig erreicht, sondern eine dauerhafte professionelle Suchbewegung."), React.createElement("p", null, "Um diesen Weg nicht allein gehen zu m\xFCssen, unterst\xFCtze ich Sie gerne dabei, Forschung und Konzepte zur Armutssensibilit\xE4t in Ihre konkrete Praxis zu \xFCbersetzen und die dr\xE4ngendsten Armutsfolgen aufzufangen."), React.createElement("p", null, "In meinen ", React.createElement("span", {
-    className: "article__accent article__accent--teal"
+    className: "article__accent"
   }, "schulinternen Fortbildungen"), " erarbeite ich mit Ihnen und Ihrem (multiprofessionellen) Kollegium passgenaue Vorgehensweisen f\xFCr Ihre Einzelschule. Dabei konzentrieren wir uns gezielt darauf, wie die professionelle Haltung im p\xE4dagogischen Alltag gest\xE4rkt werden kann (Ebene 1) und wie sich organisatorische Abl\xE4ufe im Alltag (Ebene 2) so gestalten lassen, dass sie Armutsfolgen im Schulalltag bestm\xF6glich abfedern. Zudem arbeiten wir heraus, welche Armutsfolgen Ihre Schule nicht alleine auffangen kann und wo eine kommunale Vernetzung im Sozialraum gewinnbringend ist (Ebene 3)."), React.createElement("p", null, "In ", React.createElement("span", {
-    className: "article__accent article__accent--clay"
+    className: "article__accent"
   }, "kommunalen Fortbildungen"), " blicken wir \xFCber den Tellerrand der einzelnen Einrichtung hinaus und bringen schulische sowie au\xDFerschulische Akteur*innen im Sozialraum zusammen. Hier richten wir den Fokus ganz besonders auf die dritte Ebene und erarbeiten, wie Kinder und Familien durch kommunale Pr\xE4ventionsketten institutions\xFCbergreifend und armutssensibel unterst\xFCtzt werden k\xF6nnen."), React.createElement("p", null, "Mein Anspruch ist dabei stets, dass wir keine theoretischen Standardl\xF6sungen besprechen, sondern konkrete Ans\xE4tze f\xFCr Ihre Lebensrealit\xE4t vor Ort entwickeln. Zudem werden die Fortbildungen selbstverst\xE4ndlich an Ihre Bed\xFCrfnisse angepasst, weshalb mir vorherige Besprechungen (optional auch Umfragen) zur Erwartungsabfrage sehr wichtig sind. Gleiches gilt selbstverst\xE4ndlich f\xFCr meine Workshops, Vortr\xE4ge sowie eine gemeinsame Materialentwicklung. Wenn Sie Interesse an einer Zusammenarbeit haben, ", React.createElement("a", {
     href: "../index.html#kontakt"
   }, "freue ich mich von Ihnen zu h\xF6ren"), "."), React.createElement("div", {

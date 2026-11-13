@@ -96,32 +96,13 @@ const Icon = ({
 };
 function Reveal({
   children,
-  delay = 0,
   as: As = 'div',
   className = '',
+  delay,
   ...rest
 }) {
-  const ref = React.useRef(null);
-  const [shown, setShown] = React.useState(false);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setTimeout(() => setShown(true), delay);
-        io.disconnect();
-      }
-    }, {
-      threshold: 0,
-      rootMargin: '0px 0px -10% 0px'
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [delay]);
-  return React.createElement(As, _extends({
-    ref: ref,
-    className: `reveal ${shown ? 'in' : ''} ${className}`
-  }, rest), children);
+  // Früher ein Einblend-Effekt; heute nur noch ein schlichter Behälter.
+  return React.createElement(As, _extends({ className: className || undefined }, rest), children);
 }
 window.Icon = Icon;
 window.Reveal = Reveal;
@@ -137,7 +118,6 @@ const GLYPHS = {
   erwachsen: { w: 24, h: 56, d: 'M12 1a6.5 6.5 0 1 1 0 13a6.5 6.5 0 1 1 0-13zM3 16h18l1.5 20h-5.5V55h-10V36H1.5z' },
   schein: { w: 40, h: 22, d: 'M1 1h38v20H1zM20 5a6 6 0 1 0 0 12a6 6 0 1 0 0-12z', rule: 'evenodd' },
   schule: { w: 40, h: 44, d: 'M19 0h2v10h-2zM21 0h9v6h-9zM20 9L39 21v22H25V32h-10v11H1V21z' },
-  haus: { w: 32, h: 36, d: 'M16 1L31 13v22H1V13z' },
   rathaus: { w: 40, h: 36, d: 'M20 1L39 10H1zM3 12h34v3H3zM5 17h5v14H5zM17.5 17h5v14h-5zM30 17h5v14h-5zM1 32h38v3H1z' },
   pult: { w: 40, h: 56, d: 'M12 1a6.5 6.5 0 1 1 0 13a6.5 6.5 0 1 1 0-13zM3 16h18l1.5 20h-5.5V55h-10V36H1.5zM26 22h13v4h-4.5v29h-4V26H26z' },
   blatt: { w: 34, h: 44, d: 'M9 1h24v34H9zM5 5h2v34h22v2H5zM1 9h2v34h22v1H1z' }

@@ -96,32 +96,13 @@ const Icon = ({
 };
 function Reveal({
   children,
-  delay = 0,
   as: As = 'div',
   className = '',
+  delay,
   ...rest
 }) {
-  const ref = React.useRef(null);
-  const [shown, setShown] = React.useState(false);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setTimeout(() => setShown(true), delay);
-        io.disconnect();
-      }
-    }, {
-      threshold: 0,
-      rootMargin: '0px 0px -10% 0px'
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [delay]);
-  return React.createElement(As, _extends({
-    ref: ref,
-    className: `reveal ${shown ? 'in' : ''} ${className}`
-  }, rest), children);
+  // Früher ein Einblend-Effekt; heute nur noch ein schlichter Behälter.
+  return React.createElement(As, _extends({ className: className || undefined }, rest), children);
 }
 window.Icon = Icon;
 window.Reveal = Reveal;

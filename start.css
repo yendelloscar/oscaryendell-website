@@ -24,9 +24,9 @@
 .key-sign { flex: none; display: inline-block; width: 12px; }
 .key-sign--wide { width: 26px; }
 .chart__key--inline, .chart__key--single { grid-template-columns: minmax(0, 1fr); }
-.chart__key--single .chart__fact { max-width: 70ch; font-size: 1rem; }
+.chart__key--single .chart__fact { max-width: var(--measure); font-size: 1rem; }
 .chart__key--inline .chart__legend { display: flex; flex-wrap: wrap; gap: 8px 28px; }
-.chart__fact { max-width: 62ch; }
+.chart__fact { max-width: var(--measure); }
 .chart__fact strong { font-weight: 700; }
 
 .cite { color: inherit; text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: 3px; text-underline-offset: 0.22em; white-space: nowrap; }
@@ -46,7 +46,7 @@
 .band { padding: var(--band) 0; border-top: var(--rule-heavy) solid var(--ink); }
 .band__head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(40px, 5vw, 64px); }
 .band__lede { margin: 0; max-width: 58ch; color: var(--ink-soft); }
-.band__aside { margin: 48px 0 0; max-width: 70ch; }
+.band__aside { margin: 48px 0 0; max-width: var(--measure); }
 
 /* Geldreihe */
 .chart--money { margin-bottom: clamp(48px, 6vw, 80px); }
@@ -58,9 +58,9 @@
 .formats__item { display: grid; grid-template-columns: clamp(90px, 10vw, 140px) minmax(0, 20rem) minmax(0, 1fr); gap: 16px clamp(16px, 2.5vw, 36px); padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start; }
 .formats__sign { display: flex; gap: 5px; align-items: flex-end; height: 52px; }
 .formats__sign .glyph { width: auto; height: 100%; }
-.formats__sign .glyph--schule { height: 48px; } .formats__sign .glyph--rathaus, .formats__sign .glyph--haus { height: 38px; }
+.formats__sign .glyph--schule { height: 48px; } .formats__sign .glyph--rathaus { height: 38px; }
 .formats__title { font-size: var(--t-title); line-height: 1.25; font-weight: 700; }
-.formats__body { margin: 0; max-width: 64ch; }
+.formats__body { margin: 0; max-width: var(--measure); }
 
 /* Wirkung, Tinten-Fläche */
 .band--ink { background: var(--ink); color: var(--paper); border-top-color: var(--ink); }
@@ -79,7 +79,7 @@
 .band--ink .fill-ghost { fill: var(--paper-ghost); }
 .band--ink .chart--money { margin-bottom: 0; }
 .chart--effect .chart__key { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); }
-.chart--effect .chart__fact { max-width: 72ch; font-size: var(--t-body); }
+.chart--effect .chart__fact { max-width: var(--measure); font-size: var(--t-body); }
 
 /* Person */
 .person { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
@@ -87,7 +87,7 @@
 .person__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 .person__photo figcaption { margin-top: 10px; font-size: var(--t-small); color: var(--ink-soft); }
 .person__lede { margin: 20px 0 32px; font-size: var(--t-title); line-height: 1.4; font-weight: 500; }
-.person__copy > p { max-width: 64ch; }
+.person__copy > p { max-width: var(--measure); }
 .person__closing { font-weight: 700; font-size: var(--t-title); margin: 32px 0 28px; }
 .stations { list-style: none; margin: 0 0 36px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: var(--rule-mid) solid var(--ink); }
 .stations li { padding: 14px 16px 0 0; display: grid; gap: 4px; align-content: start; font-size: var(--t-small); line-height: 1.4; position: relative; }
@@ -112,7 +112,7 @@
 .ledger__meta { display: grid; gap: 2px; font-size: var(--t-small); color: var(--ink-soft); align-content: start; }
 .ledger__label { font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.04em; }
 .ledger__title { font-size: var(--t-title); line-height: 1.3; max-width: 46ch; }
-.ledger__desc { margin: 14px 0 0; max-width: 68ch; }
+.ledger__desc { margin: 14px 0 0; max-width: var(--measure); }
 .ledger__actions { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 12px; }
 
 /* Blog */
@@ -137,7 +137,7 @@
 /* Quellen */
 .sources { padding: clamp(48px, 6vw, 72px) 0; border-top: 2px solid var(--ink); font-size: var(--t-small); line-height: 1.55; }
 .sources h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
-.sources ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 90ch; }
+.sources ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 38em; }
 .sources li { padding-left: 2em; text-indent: -2em; overflow-wrap: anywhere; }
 .sources li:target { background: var(--ochre-wash); }
 
@@ -189,11 +189,15 @@
 
 /* Über mich: Kernaussagen zuerst */
 .person__keys { list-style: none; margin: 0 0 36px; padding: 0; border-top: 2px solid var(--ink); }
-.person__keys li { padding: 14px 0; border-bottom: 1px solid var(--rule); max-width: 60ch; }
+.person__keys li { padding: 14px 0; border-bottom: 1px solid var(--rule); max-width: var(--measure); }
 .person__keys strong { display: block; font-size: var(--t-title); line-height: 1.3; margin-bottom: 2px; }
 .person__more { display: block; margin: 0 0 24px; }
 .person__story { margin-bottom: 28px; }
-.person__story > p { max-width: 64ch; }
+.person__story > p { max-width: var(--measure); }
 
 /* Pflichtfeld-Hinweis */
 .field__req { font-style: normal; font-weight: 400; color: var(--ink-soft); font-size: 0.8125rem; margin-left: 4px; }
+
+/* Tippflächen für Textlinks */
+.formats__example, .ledger__actions a { display: inline-flex; align-items: center; min-height: 44px; }
+.ledger__actions { margin-top: 4px; }

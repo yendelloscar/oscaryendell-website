@@ -48,6 +48,7 @@
 
   /* Maße */
   --wrap: 1240px;
+  --measure: 34em;          /* Lesebreite: rund 70 Zeichen in Jost */
   --gutter: clamp(16px, 4vw, 56px);
   --band: clamp(72px, 9vw, 128px);
   --rule-heavy: 6px;
@@ -84,7 +85,8 @@ a:hover { color: var(--ink-soft); }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
 h1, h2, h3 { margin: 0; font-weight: 700; }
-p { margin: 0 0 1em; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+li, blockquote p { text-wrap: pretty; }
 
 .wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
 
@@ -123,6 +125,7 @@ p { margin: 0 0 1em; }
 .button:disabled { opacity: 0.6; cursor: progress; }
 
 .text-button {
+  display: inline-flex; align-items: center; min-height: 44px;
   background: none; border: 0; padding: 0; cursor: pointer;
   font: 500 1rem var(--font); color: var(--ink);
   text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em;
