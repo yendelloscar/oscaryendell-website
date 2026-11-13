@@ -1,0 +1,148 @@
+/* Oscar Yendell – Bildstatistik
+   Grundwerte des Design-Systems. Jede Farbe hat genau eine Aufgabe. */
+
+/* Jost (SIL Open Font License), Teilmenge Latein, selbst ausgeliefert */
+@font-face {
+  font-family: 'Jost';
+  src: url('fonts/jost-variablefont_wght.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('fonts/jost-italic-variablefont_wght.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Papier und Tinte */
+  --paper: #F3F4F1;          /* Seitengrund, kühles Papierweiß */
+  --paper-raised: #FFFFFF;   /* Eingabefelder */
+  --ink: #1F2A30;            /* Text, Zeichen, Linien */
+  --ink-soft: #46525A;       /* Nebentext (7,6:1 auf Papier) */
+  --ghost: rgba(31, 42, 48, 0.16); /* nicht ausgefüllter Rest eines Zeichens */
+  --rule: rgba(31, 42, 48, 0.22);  /* feine Trennlinien */
+
+  /* Bedeutungsfarben */
+  --petrol: #2F6B6B;         /* die hervorgehobene Größe, Links */
+  --petrol-deep: #1F4D4D;    /* Hover */
+  --act: #B3322A;            /* nur die Hauptaktion: Anfrage */
+  --act-deep: #8E2620;
+  --ochre: #E3A72F;          /* nur Quellen- und Hinweismarken */
+  --petrol-on-ink: #8CC2BE;
+  --ochre-wash: rgba(227, 167, 47, 0.25); /* Hervorhebung einer angesprungenen Quelle */
+  --paper-wash: rgba(255, 255, 255, 0.14);
+  --paper-ghost: rgba(243, 244, 241, 0.28); /* nicht ausgefüllter Rest auf Tinte */  /* Petrol auf dunklem Grund, gleiche Bedeutung */
+
+  /* Schrift */
+  --font: 'Jost', 'Futura', 'Century Gothic', 'Avenir Next', sans-serif;
+
+  --t-display: clamp(2.6rem, 1.2rem + 5.2vw, 5.4rem);
+  --t-headline: clamp(1.9rem, 1.2rem + 2.4vw, 3.1rem);
+  --t-title: 1.375rem;
+  --t-body: 1.125rem;
+  --t-small: 0.9375rem;
+
+  /* Maße */
+  --wrap: 1240px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --band: clamp(72px, 9vw, 128px);
+  --rule-heavy: 6px;
+  --rule-mid: 3px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  font-weight: 400;
+  font-feature-settings: 'kern', 'liga';
+  font-variant-numeric: lining-nums tabular-nums;
+  caret-color: var(--ink);
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+a:hover { color: var(--ink-soft); }
+
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+h1, h2, h3 { margin: 0; font-weight: 700; }
+p { margin: 0 0 1em; }
+
+.wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+
+.skip { position: absolute; left: 16px; top: -100px; background: var(--ink); color: var(--paper); padding: 10px 14px; z-index: 10; }
+.skip:focus { top: 12px; color: var(--paper); }
+
+/* Schriftstufen */
+.display {
+  font-size: var(--t-display);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.headline {
+  font-size: var(--t-headline);
+  line-height: 1.04;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+/* Knöpfe */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 24px;
+  font: 700 1rem/1 var(--font); letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; border: var(--rule-mid) solid var(--ink); cursor: pointer;
+  transition: background-color 180ms var(--ease), color 180ms var(--ease), border-color 180ms var(--ease);
+}
+.button--act { background: var(--act); border-color: var(--act); color: var(--paper-raised); }
+.button--act:hover { background: var(--act-deep); border-color: var(--act-deep); color: var(--paper-raised); }
+.button--line { background: transparent; color: var(--ink); }
+.button--line:hover { background: var(--ink); color: var(--paper); }
+.button--wide { width: 100%; }
+.button:disabled { opacity: 0.6; cursor: progress; }
+
+.text-button {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: 500 1rem var(--font); color: var(--ink);
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em;
+}
+.text-button:hover { color: var(--ink-soft); }
+
+/* Formularfelder */
+.field { display: grid; gap: 6px; }
+.field > span { font-size: var(--t-small); font-weight: 500; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 50px; padding: 12px 14px;
+  font: 400 1.0625rem var(--font); color: var(--ink);
+  background: var(--paper-raised); border: 2px solid var(--ink); border-radius: 0;
+  appearance: none;
+}
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 52%, calc(100% - 16px) 52%;
+  background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px;
+}
+.field textarea { min-height: 140px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-soft); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline-offset: 0; }

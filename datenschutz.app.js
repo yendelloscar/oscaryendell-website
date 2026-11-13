@@ -127,181 +127,56 @@ window.Icon = Icon;
 window.Reveal = Reveal;
 })();
 
-/* components/Header.jsx */
+/* components/Header.jsx – Unterseiten */
 ;(function(){
-function Header({
-  active = 'home'
-}) {
+const h = React.createElement;
+function Header({ base = '', current = '' }) {
   const [open, setOpen] = React.useState(false);
-  const links = [{
-    id: 'angebot',
-    href: '#angebot',
-    label: 'Angebot'
-  }, {
-    id: 'person',
-    href: '#person',
-    label: 'Über mich'
-  }, {
-    id: 'termine',
-    href: '#termine',
-    label: 'Termine'
-  }, {
-    id: 'blog',
-    href: 'blog/index.html',
-    label: 'Blog'
-  }, {
-    id: 'kontakt',
-    href: '#kontakt',
-    label: 'Kontakt'
-  }];
-  const isBlog = active === 'blog';
-  const isLegal = active === 'legal';
-  const resolveHref = h => {
-    if (isBlog && h.startsWith('#')) return `../index.html${h}`;
-    if (isLegal && h.startsWith('#')) return `index.html${h}`;
-    return h;
-  };
-  return React.createElement("header", {
-    className: "site-header"
-  }, React.createElement("div", {
-    className: "container"
-  }, React.createElement("div", {
-    className: "site-header__top"
-  }, React.createElement("a", {
-    className: "brand",
-    href: isBlog ? '../index.html' : isLegal ? 'index.html' : '#top'
-  }, React.createElement("div", {
-    className: "brand__mark"
-  }, React.createElement("img", {
-    src: isBlog ? '../design/assets/mark.svg' : 'design/assets/mark.svg',
-    alt: "",
-    width: "36",
-    height: "36"
-  })), React.createElement("div", null, React.createElement("div", {
-    className: "brand__name"
-  }, "Dr. Oscar Yendell"), React.createElement("div", {
-    className: "brand__tag"
-  }, "Armutssensibilit\xE4t in p\xE4dagogischen Kontexten"))), React.createElement("div", {
-    className: "header-contact"
-  }, React.createElement("a", {
-    href: "mailto:mail@oscaryendell.de"
-  }, React.createElement(Icon, {
-    name: "mail",
-    size: 16
-  }), " mail@oscaryendell.de"), React.createElement("span", {
-    className: "divider"
-  }), React.createElement("a", {
-    href: "https://www.linkedin.com/in/oscar-yendell/",
-    target: "_blank",
-    rel: "noopener"
-  }, React.createElement(Icon, {
-    name: "linkedin",
-    size: 16
-  }), " LinkedIn"))), React.createElement("nav", {
-    className: `site-nav ${open ? 'open' : ''}`,
-    "aria-label": "Hauptnavigation"
-  }, React.createElement("button", {
-    className: "menu-btn",
-    onClick: () => setOpen(!open),
-    "aria-expanded": open
-  }, React.createElement(Icon, {
-    name: open ? 'close' : 'menu',
-    size: 16
-  }), " Men\xFC"), React.createElement("div", {
-    className: "site-nav__links"
-  }, links.map(l => React.createElement("a", {
-    key: l.id,
-    href: resolveHref(l.href),
-    className: active === l.id ? 'active' : '',
-    onClick: () => setOpen(false)
-  }, l.label))), React.createElement("a", {
-    href: resolveHref('#kontakt'),
-    className: "btn btn-primary nav-cta"
-  }, "Anfrage senden ", React.createElement(Icon, {
-    name: "arrow",
-    size: 14
-  })))));
+  const home = base + 'index.html';
+  const links = [
+    { href: home + '#angebot', label: 'Angebot' },
+    { href: home + '#person', label: 'Über mich' },
+    { href: home + '#termine', label: 'Einblicke' },
+    { href: base + 'blog/index.html', label: 'Blog', id: 'blog' }
+  ];
+  return h('header', { className: 'masthead' },
+    h('div', { className: 'wrap masthead__bar' },
+      h('a', { className: 'brand', href: home },
+        h('img', { src: base + 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
+        h('span', { className: 'brand__text' },
+          h('span', { className: 'brand__name' }, 'Dr. Oscar Yendell'),
+          h('span', { className: 'brand__tag' }, 'Armutssensibilität in pädagogischen Kontexten'))),
+      h('button', {
+        className: 'masthead__menu', type: 'button', 'aria-expanded': open, 'aria-controls': 'hauptnavigation',
+        onClick: () => setOpen(!open)
+      }, h(Icon, { name: open ? 'close' : 'menu', size: 18 }), open ? 'Schließen' : 'Menü'),
+      h('nav', { id: 'hauptnavigation', className: 'masthead__nav' + (open ? ' is-open' : ''), 'aria-label': 'Hauptnavigation' },
+        links.map(l => h('a', { key: l.href, href: l.href, 'aria-current': current && l.id === current ? 'page' : undefined }, l.label)),
+        h('a', { className: 'button button--act', href: home + '#kontakt' }, 'Anfrage senden'))));
 }
 window.Header = Header;
 })();
 
-/* components/SiteFooter.jsx */
+/* components/SiteFooter.jsx – Unterseiten */
 ;(function(){
-function SiteFooter({
-  isBlog = false
-}) {
-  const base = isBlog ? '../' : '';
-  return React.createElement("footer", {
-    className: "site-footer"
-  }, React.createElement("div", {
-    className: "container"
-  }, React.createElement("div", {
-    className: "site-footer__grid"
-  }, React.createElement("div", null, React.createElement("a", {
-    className: "brand",
-    href: isBlog ? '../index.html' : '#top'
-  }, React.createElement("img", {
-    src: `${base}design/assets/mark.svg`,
-    width: "36",
-    height: "36",
-    alt: "",
-    style: {
-      filter: 'invert(1) hue-rotate(180deg) brightness(1.1)'
-    }
-  }), React.createElement("div", null, React.createElement("div", {
-    className: "brand__name"
-  }, "Dr. Oscar Yendell"), React.createElement("div", {
-    className: "brand__tag"
-  }, "Armutssensibilit\xE4t in p\xE4dagogischen Kontexten")))), React.createElement("div", {
-    className: "site-footer__col"
-  }, React.createElement("h3", null, "FORMATE"), React.createElement("a", {
-    href: `${base}index.html#angebot`
-  }, "Schulinterne Fortbildungen"), React.createElement("a", {
-    href: `${base}index.html#angebot`
-  }, "Kommunale Fortbildungen"), React.createElement("a", {
-    href: `${base}index.html#angebot`
-  }, "Workshops & Vortr\xE4ge"), React.createElement("a", {
-    href: `${base}index.html#angebot`
-  }, "Materialentwicklung")), React.createElement("div", {
-    className: "site-footer__col"
-  }, React.createElement("h3", null, "Forschung"), React.createElement("a", {
-    href: `${base}blog/index.html`
-  }, "Blog"), React.createElement("a", {
-    href: `${base}index.html#person`
-  }, "\xDCber mich"), React.createElement("a", {
-    href: `${base}index.html#termine`
-  }, "Termine")), React.createElement("div", {
-    className: "site-footer__col"
-  }, React.createElement("h3", null, "Rechtliches"), React.createElement("a", {
-    href: `${base}impressum.html`
-  }, "Impressum"), React.createElement("a", {
-    href: `${base}datenschutz.html`
-  }, "Datenschutz"))), React.createElement("div", {
-    className: "site-footer__bottom"
-  }, React.createElement("div", null, "\xA9 2026 Dr. Oscar Yendell \xB7 Alle Rechte vorbehalten. \xB7 Fotos: ", React.createElement("a", {
-    href: "https://www.conen.photos/",
-    target: "_blank",
-    rel: "noopener"
-  }, "Sebastian Conen")), React.createElement("div", {
-    className: "site-footer__social"
-  }, React.createElement("a", {
-    href: "https://www.linkedin.com/in/oscar-yendell/",
-    "aria-label": "LinkedIn",
-    target: "_blank",
-    rel: "noopener"
-  }, React.createElement(Icon, {
-    name: "linkedin",
-    size: 16
-  })), React.createElement("a", {
-    href: "mailto:mail@oscaryendell.de",
-    "aria-label": "E-Mail",
-    style: {
-      marginLeft: 8
-    }
-  }, React.createElement(Icon, {
-    name: "mail",
-    size: 16
-  }))))));
+const h = React.createElement;
+function SiteFooter({ base = '' }) {
+  const home = base + 'index.html';
+  return h('footer', { className: 'colophon' },
+    h('div', { className: 'wrap colophon__grid' },
+      h('a', { className: 'brand', href: home },
+        h('img', { src: base + 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
+        h('span', { className: 'brand__text' }, h('span', { className: 'brand__name' }, 'Dr. Oscar Yendell'), h('span', { className: 'brand__tag' }, 'Armutssensibilität in pädagogischen Kontexten'))),
+      h('nav', { 'aria-label': 'Formate' }, h('h2', null, 'Formate'),
+        h('a', { href: home + '#angebot' }, 'Schulinterne Fortbildungen'), h('a', { href: home + '#angebot' }, 'Kommunale Fortbildungen'),
+        h('a', { href: home + '#angebot' }, 'Workshops & Vorträge'), h('a', { href: home + '#angebot' }, 'Materialentwicklung')),
+      h('nav', { 'aria-label': 'Weiteres' }, h('h2', null, 'Weiteres'),
+        h('a', { href: base + 'blog/index.html' }, 'Blog'), h('a', { href: home + '#person' }, 'Über mich'), h('a', { href: home + '#termine' }, 'Einblicke')),
+      h('nav', { 'aria-label': 'Rechtliches' }, h('h2', null, 'Rechtliches'),
+        h('a', { href: base + 'impressum.html' }, 'Impressum'), h('a', { href: base + 'datenschutz.html' }, 'Datenschutz'))),
+    h('div', { className: 'wrap colophon__bottom' },
+      h('span', null, '© 2026 Dr. Oscar Yendell · Fotos: ', h('a', { href: 'https://www.conen.photos/', target: '_blank', rel: 'noopener' }, 'Sebastian Conen')),
+      h('span', null, h('a', { href: 'mailto:mail@oscaryendell.de' }, 'mail@oscaryendell.de'), ' · ', h('a', { href: 'https://www.linkedin.com/in/oscar-yendell/', target: '_blank', rel: 'noopener' }, 'LinkedIn'))));
 }
 window.SiteFooter = SiteFooter;
 })();
@@ -319,9 +194,7 @@ function LegalLayout({
     className: "container"
   }, React.createElement("article", {
     className: "legal"
-  }, React.createElement("span", {
-    className: "legal__eyebrow"
-  }, "Rechtliches"), React.createElement("h1", {
+  }, React.createElement("h1", {
     className: "legal__title"
   }, title), React.createElement("div", {
     className: "legal__divider"
@@ -336,7 +209,7 @@ function LegalLayout({
   }, "e-recht24.de"))), React.createElement("a", {
     className: "legal__back",
     href: "index.html"
-  }, "\u2190 Zur\xFCck zur Startseite"))));
+  }, "Zurück zur Startseite"))));
 }
 function Impressum() {
   return React.createElement(LegalLayout, {
@@ -367,9 +240,7 @@ window.Datenschutz = Datenschutz;
 /* inline */
 ;(function(){
 function App() {
-  return React.createElement(React.Fragment, null, React.createElement(Header, {
-    active: "legal"
-  }), React.createElement("main", null, React.createElement(Datenschutz, null)), React.createElement(SiteFooter, null));
+  return React.createElement(React.Fragment, null, React.createElement(Header, { base: '', current: '' }), React.createElement("main", null, React.createElement(Datenschutz, null)), React.createElement(SiteFooter, { base: '' }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App, null));
 })();
