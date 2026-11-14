@@ -57,7 +57,7 @@
 .formats { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
 .formats__item { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); grid-template-areas: "sign text" "title text"; grid-template-rows: auto 1fr; gap: 12px clamp(24px, 4vw, 64px); padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start; }
 .formats__sign { grid-area: sign; }
-.formats__title { grid-area: title; }
+.formats__head { grid-area: title; }
 .formats__text { grid-area: text; }
 .formats__sign { display: flex; gap: 5px; align-items: flex-end; height: 44px; }
 .formats__sign .glyph { width: auto; height: 100%; }
@@ -220,3 +220,24 @@
 
 /* Dauerhafter Hilfetext unter einem Feld */
 .field__help { font-size: var(--t-small); color: var(--ink-soft); line-height: 1.4; }
+
+/* Faktenzeile je Format */
+.formats__facts { margin: 6px 0 0; font-size: var(--t-small); color: var(--ink-soft); font-weight: 500; }
+
+/* So läuft eine Zusammenarbeit */
+.process { margin-top: clamp(40px, 5vw, 56px); }
+.process__title { font-size: var(--t-title); margin-bottom: 18px; }
+.process__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(16px, 2.5vw, 32px); counter-reset: schritt; }
+.process__steps li { counter-increment: schritt; padding-top: 14px; border-top: var(--rule-mid) solid var(--ink); font-weight: 500; line-height: 1.4; }
+.process__steps li::before { content: counter(schritt); display: block; font-size: 2rem; font-weight: 700; line-height: 1; margin-bottom: 10px; }
+.process__steps li.is-optional { border-top-style: dashed; color: var(--ink-soft); }
+.process__optional { display: block; font-size: var(--t-small); font-weight: 400; margin-bottom: 2px; }
+.process__note { margin: 24px 0 0; max-width: var(--measure); }
+.contact__facts dd { text-wrap: pretty; }
+
+@media (max-width: 960px) {
+  .process__steps { grid-template-columns: 1fr 1fr; row-gap: 24px; }
+}
+@media (max-width: 480px) {
+  .process__steps { grid-template-columns: minmax(0, 1fr); }
+}

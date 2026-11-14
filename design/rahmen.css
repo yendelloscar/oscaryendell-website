@@ -18,7 +18,8 @@
 
 .colophon { border-top: var(--rule-heavy) solid var(--ink); padding: 56px 0 32px; font-size: var(--t-small); }
 .colophon__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 32px; align-items: start; }
-.colophon nav { display: grid; gap: 8px; align-content: start; }
+.colophon nav { display: grid; gap: 0; align-content: start; }
+.colophon nav a { display: flex; align-items: center; min-height: 44px; }
 .colophon h2 { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
 .colophon nav a { color: var(--ink); text-decoration: none; }
 .colophon nav a:hover { color: var(--ink); text-decoration: underline; }
@@ -51,3 +52,13 @@
   .colophon__grid { grid-template-columns: minmax(0, 1fr); }
 }
 
+
+/* Mitlaufender Kopf auf Telefonen und Tablets: verschwindet beim Herunterscrollen, kommt beim Hochscrollen zurück */
+@media (max-width: 960px) {
+  html { scroll-padding-top: 84px; }
+  .masthead { position: sticky; top: 0; z-index: 20; background: var(--paper); transition: transform 220ms var(--ease); }
+  .masthead.is-tucked { transform: translateY(-100%); }
+}
+@media (max-width: 960px) and (prefers-reduced-motion: reduce) {
+  .masthead { transition: none; }
+}

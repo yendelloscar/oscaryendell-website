@@ -177,13 +177,26 @@ window.Cite = Cite;
 const h = React.createElement;
 function Header() {
   const [open, setOpen] = React.useState(false);
+  const [hidden, setHidden] = React.useState(false);
+  React.useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setHidden(y > last && y > 160);
+      last = y;
+    };
+    const onKey = e => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('keydown', onKey); };
+  }, []);
   const links = [
     { href: '#angebot', label: 'Angebot' },
     { href: '#person', label: 'Über mich' },
     { href: '#termine', label: 'Einblicke' },
     { href: 'blog/index.html', label: 'Blog' }
   ];
-  return h('header', { className: 'masthead' },
+  return h('header', { className: 'masthead' + (hidden && !open ? ' is-tucked' : '') },
     h('div', { className: 'wrap masthead__bar' },
       h('a', { className: 'brand', href: '#top' },
         h('img', { src: 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
@@ -206,7 +219,7 @@ window.Header = Header;
 /* components/Hero.jsx */
 ;(function(){
 const h = React.createElement;
-const FORMATE = ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung', 'Anderes oder noch offen'];
+const FORMATE = ['Schulinterne Fortbildungen', 'Kommunale Fortbildungen', 'Workshops & Vorträge', 'Materialentwicklung', 'Kennenlerngespräch (unverbindlich)', 'Anderes oder noch offen'];
 
 function prefill(e) {
   e.preventDefault();
@@ -259,13 +272,13 @@ window.Hero = Hero;
 const h = React.createElement;
 function Offers() {
   const items = [
-    { glyphs: ['schule'], example: [0, 'Grundschule, Ludwigshafen'], title: 'Schulinterne Fortbildungen',
+    { id: 'format-schulintern', glyphs: ['schule'], facts: '1 Tag · ganzes Kollegium · vor Ort', example: [0, 'Grundschule, Ludwigshafen'], title: 'Schulinterne Fortbildungen',
       body: 'Ein gemeinsamer Tag mit Ihrem (multiprofessionellen) Kollegium: Wie beeinflusst Armut das Aufwachsen unserer Schüler*innen? In welchen Momenten wird Armut in unserer Schule überhaupt relevant? Wie können wir den identifizierten Armutsfolgen an unserer Schule begegnen? Gemeinsam erarbeiten wir konkrete Ansätze für Sie vor Ort.' },
-    { glyphs: ['rathaus'], example: [1, 'Landschaftsverband Rheinland, Köln'], title: 'Kommunale Fortbildungen',
+    { id: 'format-kommunal', glyphs: ['rathaus'], facts: '1 Tag · mehrere Institutionen · vor Ort', example: [1, 'Landschaftsverband Rheinland, Köln'], title: 'Kommunale Fortbildungen',
       body: 'Ein gemeinsamer Tag mit mehreren Institutionen (bspw. Schulvertreter*innen, kommunale Bildungsakteur*innen und Partner*innen im Sozialraum): Wie beeinflusst Armut das Aufwachsen im Sozialraum? Welche Präventionsketten und -netzwerke gibt es? Gemeinsam erarbeiten wir, wie Armutsfolgen institutionsübergreifend vor Ort aufgefangen werden können.' },
-    { glyphs: ['pult'], example: [2, 'ArbeiterKind.de, online'], title: 'Workshops & Vorträge',
+    { id: 'format-workshop', glyphs: ['pult'], facts: 'ab 60 Minuten · online oder vor Ort', example: [2, 'ArbeiterKind.de, online'], title: 'Workshops & Vorträge',
       body: 'Online oder vor Ort. Impulsformate für Fachtage, Kommunen, Vereine und Stiftungen. Vom 60-Minuten-Vortrag bis hin zu längeren Workshops.' },
-    { glyphs: ['blatt'], example: [5, 'Stiftung Lernen durch Engagement'], title: 'Materialentwicklung',
+    { id: 'format-material', glyphs: ['blatt'], facts: 'Umfang nach Absprache', example: [5, 'Stiftung Lernen durch Engagement'], title: 'Materialentwicklung',
       body: 'Handreichungen, Arbeitsblätter, Checklisten, Reflexionsbögen, Materialien zur Sozialraumbegehung, passgenau für die Bedarfe der Nutzer*innen.' }
   ];
   return h('section', { className: 'band', id: 'angebot', 'aria-labelledby': 'angebot-titel' },
@@ -274,12 +287,20 @@ function Offers() {
         h('h2', { id: 'angebot-titel', className: 'headline' }, 'Vier Formate, ein Ziel: Armutssensibilität in die Praxis übersetzen.'),
         h('p', { className: 'band__lede' }, 'Jedes Format wird gemeinsam mit Ihnen auf das zugeschnitten, was bei Ihnen vor Ort tatsächlich gerade ansteht. Meine Formate basieren immer auf aktuellen wissenschaftlichen Erkenntnissen und Beispielen konkreter armutssensibler Praxis. Am Ende stehen immer konkrete Vorgehensweisen für Ihre Einrichtung.')),
       h('ol', { className: 'formats' },
-        items.map(it => h('li', { key: it.title, className: 'formats__item' },
+        items.map(it => h('li', { key: it.title, id: it.id, className: 'formats__item' },
           h('div', { className: 'formats__sign', 'aria-hidden': 'true' }, it.glyphs.map((g, i) => h(Glyph, { key: i, kind: g }))),
-          h('h3', { className: 'formats__title' }, it.title),
+          h('div', { className: 'formats__head' }, h('h3', { className: 'formats__title' }, it.title), h('p', { className: 'formats__facts' }, it.facts)),
           h('div', { className: 'formats__text' },
             h('p', { className: 'formats__body' }, it.body),
             h('a', { className: 'formats__example', href: '#einblick-' + it.example[0] + '-zeile' }, 'Beispiel ansehen: ' + it.example[1]))))),
+      h('div', { className: 'process', 'aria-labelledby': 'ablauf-titel', role: 'region' },
+        h('h3', { id: 'ablauf-titel', className: 'process__title' }, 'So läuft eine Zusammenarbeit'),
+        h('ol', { className: 'process__steps' },
+          h('li', null, 'Erstgespräch und Erwartungsabfrage'),
+          h('li', { className: 'is-optional' }, h('span', { className: 'process__optional' }, 'Optional'), 'Weitere Planungsgespräche'),
+          h('li', null, 'Format, zugeschnitten auf Ihre Voraussetzungen'),
+          h('li', null, 'Evaluation und Nachbesprechung')),
+        h('p', { className: 'process__note' }, 'Das Honorar richtet sich nach Umfang und Format. Nach dem Erstgespräch erhalten Sie ein Angebot. Fortbildungen planen Sie am besten 3 bis 6 Monate im Voraus.')),
       h('p', { className: 'band__aside' },
         h('strong', null, 'Sie haben Interesse an einem gemeinsamen Format oder weitere Ideen?'),
         ' Schreiben Sie mir, gerne steigen wir gemeinsam in die Planung ein. ',
@@ -301,11 +322,11 @@ function Effect() {
             h('div', { className: 'chart--money__rows' },
               h('div', { className: 'family', 'aria-hidden': 'true' },
                 h(Glyph, { kind: 'erwachsen' }), h(Glyph, { kind: 'erwachsen' }), h(Glyph, { kind: 'kind' }), h(Glyph, { kind: 'kind' })),
-              h(CountRow, { kind: 'schein', total: 31, marked: 30.34, tone: 'petrol', restTone: 'ghost',
+              h(CountRow, { kind: 'schein', total: 31, marked: 30.34, tone: 'ink', restTone: 'ghost',
                 label: 'Bildstatistik: 30,34 Geldscheine zu je 100 Euro, zusammen 3.034 Euro.' })),
             h('figcaption', { className: 'chart__key' },
               h('ul', { className: 'chart__legend' },
-                h('li', null, h('span', { className: 'key-sign key-sign--wide', 'aria-hidden': 'true' }, h(Glyph, { kind: 'schein', tone: 'petrol' })), '1 Schein = 100 € netto im Monat')),
+                h('li', null, h('span', { className: 'key-sign key-sign--wide', 'aria-hidden': 'true' }, h(Glyph, { kind: 'schein' })), '1 Schein = 100 € netto im Monat')),
               h('span', { className: 'chart__fact' },
                 'Eine Familie mit zwei Erwachsenen und zwei Kindern unter 14 Jahren gilt als armutsgefährdet, wenn ihr weniger als ',
                 h('strong', null, '3.034 € netto im Monat'), ' zur Verfügung stehen ', h(Cite, { id: 'destatis' }, 'Statistisches Bundesamt, 2026'),
@@ -354,8 +375,8 @@ function About() {
           ', die sich gegen Kinder- und Jugendarmut in Karlsruhe einsetzt. Neben Projektkoordination, Fundraising und Kommunikation baue ich Netzwerke und Kooperationen mit Bildungseinrichtungen sowie zivilgesellschaftlichen Akteur*innen auf, damit Maßnahmen zur Bewältigung von Armutsfolgen umgesetzt werden.'),
         h('p', null, 'In meinen Formaten verbinde ich meine Biografie mit wissenschaftlichen Erkenntnissen zur Armutssensibilität und meiner Expertise in der Organisationsentwicklung sowie der organisationsübergreifenden Kooperation. Dabei habe ich stets ein Auge darauf, was Schulleitungen, Lehrkräfte, Sozialarbeiter*innen und weitere Bildungsakteur*innen jeden Tag leisten.')),
         h('a', { className: 'button button--line', href: '#kontakt', onClick: () => {
-          const t = document.querySelector('#kontakt textarea[name="anliegen"]');
-          if (t && !t.value) t.value = 'Ich wünsche mir ein Kennenlerngespräch.';
+          const sel = document.querySelector('#kontakt select[name="format"]');
+          if (sel) sel.value = 'Kennenlerngespräch (unverbindlich)';
         } }, 'Kennenlerngespräch anfragen'))));
 }
 window.About = About;
@@ -404,9 +425,9 @@ function Events() {
     return () => window.removeEventListener('hashchange', fromHash);
   }, []);
   const formats = [
-    { glyph: 'schule', label: 'Schulinterne Fortbildung', where: 'Grundschule, Ludwigshafen', title: 'Studientag zur Armutssensibilität im schulischen Alltag',
+    { glyph: 'schule', label: 'Schulinterne Fortbildungen', where: 'Grundschule, Ludwigshafen', title: 'Studientag zur Armutssensibilität im schulischen Alltag',
       desc: 'Beginnend haben wir uns damit auseinandergesetzt, welche Dimensionen Armutssensibilität umfasst. Anschließend haben wir eigene Vorstellungen und Fehlannahmen in Bezug auf Armut (zum Teil spielerisch) reflektiert. Darauffolgend haben wir identifiziert, welche Rolle Armut im Schulalltag (nicht) spielt (bspw. Unterricht, Verpflegung, Ausflüge, Elternarbeit). Unter Bezugnahme auf konkrete Praxisbeispiele anderer Schulen haben wir erarbeitet, wie die Schule die identifizierten Armutsfolgen auffangen kann und wo eine Zusammenarbeit mit außerschulischen Partner*innen sinnvoll ist. Am Ende des Tages standen konkrete Vorgehensweisen fest, um in den kommenden Wochen eine armutssensible Praxis in den identifizierten Bereichen zu implementieren.' },
-    { glyph: 'rathaus', label: 'Kommunale Fortbildung', where: 'Landschaftsverband Rheinland, Köln', title: 'Armutssensible Praxis als Teil der kommunalen Präventionskette',
+    { glyph: 'rathaus', label: 'Kommunale Fortbildungen', where: 'Landschaftsverband Rheinland, Köln', title: 'Armutssensible Praxis als Teil der kommunalen Präventionskette',
       desc: 'Nachdem wir zu Beginn auf die Dimensionen von Armutssensibilität eingegangen sind, haben wir uns anschließend damit beschäftigt, wie Armut das Aufwachsen von Kindern und Jugendlichen in unterschiedlichen Lebensbereichen beeinflusst. Mit Blick auf konkrete armutssensible Praxisbeispiele anderer Kommunen haben wir anschließend erarbeitet, welche Rolle Schulen und welche Rolle weitere Akteur*innen (bspw. Jugendämter oder Jobcenter) in Bezug auf Armutssensibilität einnehmen. Am Ende des Tages bestand ein geteiltes Verständnis darüber, wer welche Armutsfolgen (nicht) auffangen kann und welche Kooperationsmöglichkeiten zwischen schulischen und außerschulischen Akteur*innen kommunale Präventionsketten in Bezug auf Armutssensibilität ermöglichen.' },
     { glyph: 'pult', label: 'Workshops & Vorträge', where: 'Workshop · ArbeiterKind.de, online', title: 'Armutsbezogene Vorstellungen von Lehrkräften',
       desc: 'Zu Beginn haben wir uns unter Bezugnahme auf das ökonomische, soziale und kulturelle Kapital damit auseinandergesetzt, wie ein Mangel der Kapitalsorten Bildungskarrieren negativ beeinflusst. Anschließend haben wir aktuelle Studien diskutiert, die zeigen, wie negative armutsbezogene Vorstellungen von Lehrkräften zu verringerten Leistungserwartungen und -bewertungen führen können. Abschließend wurden konkrete Möglichkeiten für den Schulalltag vorgestellt, negative Vorstellungen abzubauen. Dabei diskutierten die Teilnehmer*innen, wie dies in den Schulalltag implementiert werden kann.' },
@@ -497,7 +518,7 @@ function Contact() {
               h('label', { className: 'field' }, h('span', null, 'Format'),
                 h('select', { name: 'format', defaultValue: '' },
                   h('option', { value: '' }, 'Bitte wählen …'),
-                  ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung', 'Anderes oder noch offen'].map(o => h('option', { key: o }, o))))),
+                  ['Schulinterne Fortbildungen', 'Kommunale Fortbildungen', 'Workshops & Vorträge', 'Materialentwicklung', 'Kennenlerngespräch (unverbindlich)', 'Anderes oder noch offen'].map(o => h('option', { key: o }, o))))),
             h('label', { className: 'field' }, h('span', null, 'Anliegen'), h('textarea', { name: 'anliegen', rows: 5, 'aria-describedby': 'anliegen-hilfe' }), h('small', { id: 'anliegen-hilfe', className: 'field__help' }, 'Zum Beispiel Wunschtermin, Anzahl der Teilnehmenden und Thema.')),
             h('p', { className: 'contact__consent' }, 'Mit dem Absenden stimme ich zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise zum Datenschutz finden Sie in der ', h('a', { href: 'datenschutz.html' }, 'Datenschutzerklärung'), '.'),
             error && h('p', { className: 'contact__error', role: 'alert' }, 'Ihre Nachricht konnte gerade nicht gesendet werden. Ihre Angaben bleiben erhalten – bitte versuchen Sie es noch einmal oder schreiben Sie mir direkt an ', h('a', { href: 'mailto:mail@oscaryendell.de' }, 'mail@oscaryendell.de'), '.'),
@@ -531,8 +552,8 @@ function SiteFooter() {
         h('img', { src: 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
         h('span', { className: 'brand__text' }, h('span', { className: 'brand__name' }, 'Dr. Oscar Yendell'), h('span', { className: 'brand__tag' }, 'Armutssensibilität in pädagogischen Kontexten'))),
       h('nav', { 'aria-label': 'Formate' }, h('h2', null, 'Formate'),
-        h('a', { href: '#angebot' }, 'Schulinterne Fortbildungen'), h('a', { href: '#angebot' }, 'Kommunale Fortbildungen'),
-        h('a', { href: '#angebot' }, 'Workshops & Vorträge'), h('a', { href: '#angebot' }, 'Materialentwicklung')),
+        h('a', { href: '#format-schulintern' }, 'Schulinterne Fortbildungen'), h('a', { href: '#format-kommunal' }, 'Kommunale Fortbildungen'),
+        h('a', { href: '#format-workshop' }, 'Workshops & Vorträge'), h('a', { href: '#format-material' }, 'Materialentwicklung')),
       h('nav', { 'aria-label': 'Mehr erfahren' }, h('h2', null, 'Mehr erfahren'),
         h('a', { href: 'blog/index.html' }, 'Blog'), h('a', { href: '#person' }, 'Über mich'), h('a', { href: '#termine' }, 'Einblicke')),
       h('nav', { 'aria-label': 'Rechtliches' }, h('h2', null, 'Rechtliches'),

@@ -113,6 +113,19 @@ window.Reveal = Reveal;
 const h = React.createElement;
 function Header({ base = '', current = '' }) {
   const [open, setOpen] = React.useState(false);
+  const [hidden, setHidden] = React.useState(false);
+  React.useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setHidden(y > last && y > 160);
+      last = y;
+    };
+    const onKey = e => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('keydown', onKey); };
+  }, []);
   const home = base + 'index.html';
   const links = [
     { href: home + '#angebot', label: 'Angebot' },
@@ -120,7 +133,7 @@ function Header({ base = '', current = '' }) {
     { href: home + '#termine', label: 'Einblicke' },
     { href: base + 'blog/index.html', label: 'Blog', id: 'blog' }
   ];
-  return h('header', { className: 'masthead' },
+  return h('header', { className: 'masthead' + (hidden && !open ? ' is-tucked' : '') },
     h('div', { className: 'wrap masthead__bar' },
       h('a', { className: 'brand', href: home },
         h('img', { src: base + 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
@@ -149,8 +162,8 @@ function SiteFooter({ base = '' }) {
         h('img', { src: base + 'design/assets/mark.svg', alt: '', width: 40, height: 40 }),
         h('span', { className: 'brand__text' }, h('span', { className: 'brand__name' }, 'Dr. Oscar Yendell'), h('span', { className: 'brand__tag' }, 'Armutssensibilität in pädagogischen Kontexten'))),
       h('nav', { 'aria-label': 'Formate' }, h('h2', null, 'Formate'),
-        h('a', { href: home + '#angebot' }, 'Schulinterne Fortbildungen'), h('a', { href: home + '#angebot' }, 'Kommunale Fortbildungen'),
-        h('a', { href: home + '#angebot' }, 'Workshops & Vorträge'), h('a', { href: home + '#angebot' }, 'Materialentwicklung')),
+        h('a', { href: home + '#format-schulintern' }, 'Schulinterne Fortbildungen'), h('a', { href: home + '#format-kommunal' }, 'Kommunale Fortbildungen'),
+        h('a', { href: home + '#format-workshop' }, 'Workshops & Vorträge'), h('a', { href: home + '#format-material' }, 'Materialentwicklung')),
       h('nav', { 'aria-label': 'Mehr erfahren' }, h('h2', null, 'Mehr erfahren'),
         h('a', { href: base + 'blog/index.html' }, 'Blog'), h('a', { href: home + '#person' }, 'Über mich'), h('a', { href: home + '#termine' }, 'Einblicke')),
       h('nav', { 'aria-label': 'Rechtliches' }, h('h2', null, 'Rechtliches'),
@@ -220,7 +233,7 @@ window.BlogList = BlogList;
 /* inline */
 ;(function(){
 function App() {
-  return React.createElement(React.Fragment, null, React.createElement(Header, { base: '../', current: 'blog' }), React.createElement("main", null, React.createElement(BlogList, null)), React.createElement(SiteFooter, { base: '../' }));
+  return React.createElement(React.Fragment, null, React.createElement("a", { className: "skip", href: "#inhalt" }, "Zum Inhalt springen"), React.createElement(Header, { base: '../', current: 'blog' }), React.createElement("main", { id: "inhalt" }, React.createElement(BlogList, null)), React.createElement(SiteFooter, { base: '../' }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App, null));
 })();
