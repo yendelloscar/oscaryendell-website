@@ -43,8 +43,8 @@
 .quick-ask__note { margin: 0; font-size: var(--t-small); color: var(--ink-soft); }
 
 /* Abschnitte */
-.band { padding: var(--band) 0; border-top: var(--rule-heavy) solid var(--ink); }
-.band__head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(40px, 5vw, 64px); }
+.band { padding: var(--band) 0 var(--band-end); border-top: var(--rule-heavy) solid var(--ink); }
+.band__head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 48px); }
 .band__lede { margin: 0; max-width: 58ch; color: var(--ink-soft); }
 .band__aside { margin: 48px 0 0; max-width: var(--measure); }
 
@@ -55,10 +55,13 @@
 
 /* Formate als Tafel */
 .formats { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
-.formats__item { display: grid; grid-template-columns: clamp(90px, 10vw, 140px) minmax(0, 20rem) minmax(0, 1fr); gap: 16px clamp(16px, 2.5vw, 36px); padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start; }
-.formats__sign { display: flex; gap: 5px; align-items: flex-end; height: 52px; }
+.formats__item { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); grid-template-areas: "sign text" "title text"; grid-template-rows: auto 1fr; gap: 12px clamp(24px, 4vw, 64px); padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.formats__sign { grid-area: sign; }
+.formats__title { grid-area: title; }
+.formats__text { grid-area: text; }
+.formats__sign { display: flex; gap: 5px; align-items: flex-end; height: 44px; }
 .formats__sign .glyph { width: auto; height: 100%; }
-.formats__sign .glyph--schule { height: 48px; } .formats__sign .glyph--rathaus { height: 38px; }
+.formats__sign .glyph--schule { height: 44px; } .formats__sign .glyph--rathaus { height: 34px; }
 .formats__title { font-size: var(--t-title); line-height: 1.25; font-weight: 700; }
 .formats__body { margin: 0; max-width: var(--measure); }
 
@@ -73,8 +76,11 @@
 .count-row--rising > li::before, .key-rise { content: ''; display: block; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 11px solid currentColor; }
 .count-row--rising > li::before { position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: var(--paper); }
 .key-rise { color: var(--paper); display: inline-block; }
-.findings > .headline { max-width: 20ch; margin-bottom: clamp(40px, 5vw, 64px); }
-.finding + .finding { margin-top: clamp(56px, 7vw, 96px); padding-top: clamp(28px, 3vw, 40px); border-top: var(--rule-mid) solid var(--paper); }
+.findings { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 0; align-items: stretch; }
+.findings > .finding:first-of-type { padding-right: clamp(28px, 4vw, 64px); }
+.findings > .headline { grid-column: 1 / -1; max-width: 20ch; margin-bottom: clamp(40px, 5vw, 64px); }
+.finding + .finding { padding-left: clamp(28px, 4vw, 64px); border-left: 1px solid var(--paper-ghost); }
+.findings .chart__key { grid-template-columns: minmax(0, 1fr); }
 .finding__title { font-size: clamp(1.35rem, 1.05rem + 1vw, 1.9rem); line-height: 1.2; max-width: 34ch; margin-bottom: clamp(28px, 3.5vw, 44px); }
 .band--ink .fill-ghost { fill: var(--paper-ghost); }
 .band--ink .chart--money { margin-bottom: 0; }
@@ -201,3 +207,12 @@
 /* Tippflächen für Textlinks */
 .formats__example, .ledger__actions a { display: inline-flex; align-items: center; min-height: 44px; }
 .ledger__actions { margin-top: 4px; }
+
+@media (max-width: 960px) {
+  .findings { grid-template-columns: minmax(0, 1fr); }
+  .findings > .finding:first-of-type { padding-right: 0; }
+  .finding + .finding { margin: clamp(48px, 7vw, 72px) 0 0; padding: clamp(28px, 4vw, 40px) 0 0; border-left: 0; border-top: var(--rule-mid) solid var(--paper); }
+}
+@media (max-width: 720px) {
+  .formats__item { grid-template-columns: minmax(0, 1fr); grid-template-areas: "sign" "title" "text"; grid-template-rows: auto; }
+}

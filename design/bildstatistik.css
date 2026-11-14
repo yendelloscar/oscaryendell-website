@@ -51,6 +51,7 @@
   --measure: 34em;          /* Lesebreite: rund 70 Zeichen in Jost */
   --gutter: clamp(16px, 4vw, 56px);
   --band: clamp(72px, 9vw, 128px);
+  --band-end: clamp(56px, 6vw, 88px); /* unten weniger Luft als oben */
   --rule-heavy: 6px;
   --rule-mid: 3px;
 
