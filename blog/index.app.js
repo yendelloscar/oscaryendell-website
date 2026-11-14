@@ -185,7 +185,7 @@ function BlogList() {
     date: '01. Oktober 2026',
     read: '6 Min. Lesezeit',
     cat: 'Grundlagen',
-    illu: 'gespraech.svg'
+    illu: 'gluehbirne.svg'
   };
   return React.createElement(React.Fragment, null, React.createElement("section", {
     className: "blog-hero"
