@@ -22,7 +22,7 @@
   --paper: #F3F4F1;          /* Seitengrund, kühles Papierweiß */
   --paper-raised: #FFFFFF;   /* Eingabefelder */
   --ink: #1F2A30;            /* Text, Zeichen, Linien */
-  --ink-soft: #46525A;       /* Nebentext (7,6:1 auf Papier) */
+  --ink-soft: #46525A;       /* Nebentext (7,3:1 auf Papier) */
   --ghost: rgba(31, 42, 48, 0.16); /* nicht ausgefüllter Rest eines Zeichens */
   --rule: rgba(31, 42, 48, 0.22);  /* feine Trennlinien */
 
@@ -32,10 +32,10 @@
   --act: #B3322A;            /* nur die Hauptaktion: Anfrage */
   --act-deep: #8E2620;
   --ochre: #E3A72F;          /* nur Quellen- und Hinweismarken */
-  --petrol-on-ink: #8CC2BE;
+  --petrol-on-ink: #8CC2BE;  /* Petrol auf dunklem Grund, gleiche Bedeutung */
   --ochre-wash: rgba(227, 167, 47, 0.25); /* Hervorhebung einer angesprungenen Quelle */
   --paper-wash: rgba(255, 255, 255, 0.14);
-  --paper-ghost: rgba(243, 244, 241, 0.28); /* nicht ausgefüllter Rest auf Tinte */  /* Petrol auf dunklem Grund, gleiche Bedeutung */
+  --paper-ghost: rgba(243, 244, 241, 0.28); /* nicht ausgefüllter Rest auf Tinte */
 
   /* Schrift */
   --font: 'Jost', 'Futura', 'Century Gothic', 'Avenir Next', sans-serif;
