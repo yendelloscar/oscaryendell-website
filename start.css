@@ -216,3 +216,6 @@
 @media (max-width: 720px) {
   .formats__item { grid-template-columns: minmax(0, 1fr); grid-template-areas: "sign" "title" "text"; grid-template-rows: auto; }
 }
+
+/* Dauerhafter Hilfetext unter einem Feld */
+.field__help { font-size: var(--t-small); color: var(--ink-soft); line-height: 1.4; }

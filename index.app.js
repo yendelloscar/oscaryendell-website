@@ -206,7 +206,7 @@ window.Header = Header;
 /* components/Hero.jsx */
 ;(function(){
 const h = React.createElement;
-const FORMATE = ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung'];
+const FORMATE = ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung', 'Anderes oder noch offen'];
 
 function prefill(e) {
   e.preventDefault();
@@ -246,10 +246,10 @@ function Hero() {
             h('input', { name: 'einrichtung', autoComplete: 'organization', placeholder: 'Schule, Kommune, Träger …' })),
           h('label', { className: 'field' }, h('span', null, 'Format'),
             h('select', { name: 'format', defaultValue: '' },
-              h('option', { value: '' }, 'Noch offen'),
+              h('option', { value: '' }, 'Bitte wählen …'),
               FORMATE.map(f => h('option', { key: f }, f)))),
           h('button', { className: 'button button--act button--wide', type: 'submit' }, 'Format anfragen'),
-          h('p', { className: 'quick-ask__note' }, 'Planung am besten 3 bis 6 Monate im Voraus.')))));
+          h('p', { className: 'quick-ask__note' }, 'Hier wird noch nichts abgeschickt. Im nächsten Schritt ergänzen Sie Name, E-Mail und Ihr Anliegen.')))));
 }
 window.Hero = Hero;
 })();
@@ -433,8 +433,8 @@ function Events() {
               h('h3', { className: 'ledger__title' }, f.title),
               h('p', { id: 'einblick-' + i, className: 'ledger__desc', hidden: !open }, f.desc),
               h('div', { className: 'ledger__actions' },
-                h('button', { type: 'button', className: 'text-button', 'aria-expanded': open, 'aria-controls': 'einblick-' + i, 'aria-label': (open ? 'Beschreibung schließen: ' : 'Ablauf lesen: ') + f.title, onClick: () => setOpenIdx(open ? null : i) },
-                  open ? 'Beschreibung schließen' : 'Ablauf lesen'),
+                h('button', { type: 'button', className: 'text-button', 'aria-expanded': open, 'aria-controls': 'einblick-' + i, 'aria-label': (open ? 'Ablauf schließen: ' : 'Ablauf lesen: ') + f.title, onClick: () => setOpenIdx(open ? null : i) },
+                  open ? 'Ablauf schließen' : 'Ablauf lesen'),
                 f.link && h('a', { href: f.link, target: '_blank', rel: 'noopener noreferrer' }, f.linkLabel))));
         }))));
 }
@@ -490,17 +490,17 @@ function Contact() {
             h('p', null, 'Ich melde mich innerhalb von drei Werktagen bei Ihnen.'))
           : h(React.Fragment, null,
             h('div', { className: 'contact__row' },
-              h('label', { className: 'field' }, h('span', null, 'Name ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'name', autoComplete: 'name' })),
-              h('label', { className: 'field' }, h('span', null, 'E-Mail ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'email', type: 'email', autoComplete: 'email' }))),
+              h('label', { className: 'field' }, h('span', null, 'Name ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'name', autoComplete: 'name', onInvalid: e => e.target.setCustomValidity(e.target.validity.valueMissing ? 'Bitte geben Sie Ihren Namen an.' : ''), onInput: e => e.target.setCustomValidity('') })),
+              h('label', { className: 'field' }, h('span', null, 'E-Mail ', h('em', { className: 'field__req' }, 'Pflichtfeld')), h('input', { required: true, name: 'email', type: 'email', autoComplete: 'email', onInvalid: e => e.target.setCustomValidity(e.target.validity.valueMissing ? 'Bitte geben Sie Ihre E-Mail-Adresse an, damit ich Ihnen antworten kann.' : 'Bitte prüfen Sie die E-Mail-Adresse, zum Beispiel name@schule.de.'), onInput: e => e.target.setCustomValidity('') }))),
             h('div', { className: 'contact__row' },
               h('label', { className: 'field' }, h('span', null, 'Einrichtung'), h('input', { name: 'einrichtung', autoComplete: 'organization', placeholder: 'Schule, Kommune, Träger …' })),
               h('label', { className: 'field' }, h('span', null, 'Format'),
                 h('select', { name: 'format', defaultValue: '' },
                   h('option', { value: '' }, 'Bitte wählen …'),
                   ['Schulinterne Fortbildung', 'Kommunale Fortbildung', 'Workshop oder Vortrag', 'Materialentwicklung', 'Anderes oder noch offen'].map(o => h('option', { key: o }, o))))),
-            h('label', { className: 'field' }, h('span', null, 'Anliegen'), h('textarea', { name: 'anliegen', rows: 5, placeholder: 'Termin, Anzahl Teilnehmende, gewünschtes Thema …' })),
+            h('label', { className: 'field' }, h('span', null, 'Anliegen'), h('textarea', { name: 'anliegen', rows: 5, 'aria-describedby': 'anliegen-hilfe' }), h('small', { id: 'anliegen-hilfe', className: 'field__help' }, 'Zum Beispiel Wunschtermin, Anzahl der Teilnehmenden und Thema.')),
             h('p', { className: 'contact__consent' }, 'Mit dem Absenden stimme ich zu, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise zum Datenschutz finden Sie in der ', h('a', { href: 'datenschutz.html' }, 'Datenschutzerklärung'), '.'),
-            error && h('p', { className: 'contact__error', role: 'alert' }, 'Die Nachricht konnte leider nicht gesendet werden. Bitte schreiben Sie mir direkt an ', h('a', { href: 'mailto:mail@oscaryendell.de' }, 'mail@oscaryendell.de'), '.'),
+            error && h('p', { className: 'contact__error', role: 'alert' }, 'Ihre Nachricht konnte gerade nicht gesendet werden. Ihre Angaben bleiben erhalten – bitte versuchen Sie es noch einmal oder schreiben Sie mir direkt an ', h('a', { href: 'mailto:mail@oscaryendell.de' }, 'mail@oscaryendell.de'), '.'),
             h('button', { className: 'button button--act', type: 'submit', disabled: busy }, busy ? 'Wird gesendet …' : 'Anfrage senden')))));
 }
 window.Contact = Contact;
@@ -533,7 +533,7 @@ function SiteFooter() {
       h('nav', { 'aria-label': 'Formate' }, h('h2', null, 'Formate'),
         h('a', { href: '#angebot' }, 'Schulinterne Fortbildungen'), h('a', { href: '#angebot' }, 'Kommunale Fortbildungen'),
         h('a', { href: '#angebot' }, 'Workshops & Vorträge'), h('a', { href: '#angebot' }, 'Materialentwicklung')),
-      h('nav', { 'aria-label': 'Weiteres' }, h('h2', null, 'Weiteres'),
+      h('nav', { 'aria-label': 'Mehr erfahren' }, h('h2', null, 'Mehr erfahren'),
         h('a', { href: 'blog/index.html' }, 'Blog'), h('a', { href: '#person' }, 'Über mich'), h('a', { href: '#termine' }, 'Einblicke')),
       h('nav', { 'aria-label': 'Rechtliches' }, h('h2', null, 'Rechtliches'),
         h('a', { href: 'impressum.html' }, 'Impressum'), h('a', { href: 'datenschutz.html' }, 'Datenschutz'))),

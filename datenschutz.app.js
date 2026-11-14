@@ -151,7 +151,7 @@ function SiteFooter({ base = '' }) {
       h('nav', { 'aria-label': 'Formate' }, h('h2', null, 'Formate'),
         h('a', { href: home + '#angebot' }, 'Schulinterne Fortbildungen'), h('a', { href: home + '#angebot' }, 'Kommunale Fortbildungen'),
         h('a', { href: home + '#angebot' }, 'Workshops & Vorträge'), h('a', { href: home + '#angebot' }, 'Materialentwicklung')),
-      h('nav', { 'aria-label': 'Weiteres' }, h('h2', null, 'Weiteres'),
+      h('nav', { 'aria-label': 'Mehr erfahren' }, h('h2', null, 'Mehr erfahren'),
         h('a', { href: base + 'blog/index.html' }, 'Blog'), h('a', { href: home + '#person' }, 'Über mich'), h('a', { href: home + '#termine' }, 'Einblicke')),
       h('nav', { 'aria-label': 'Rechtliches' }, h('h2', null, 'Rechtliches'),
         h('a', { href: base + 'impressum.html' }, 'Impressum'), h('a', { href: base + 'datenschutz.html' }, 'Datenschutz'))),
