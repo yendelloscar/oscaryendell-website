@@ -2,7 +2,7 @@
   <g stroke="#1F2A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     
     <circle cx="140" cy="100" r="46" stroke="#1F2A30" stroke-width="2.4"></circle>
-    <path d="M140 68 L152 100 L140 132 L128 100 Z" fill="#FFFFFF"></path>
+    <path d="M140 68 L152 100 L140 100 L128 100 Z" fill="#2F6B6B"></path><path d="M140 100 L152 100 L140 132 L128 100 Z" fill="#FFFFFF"></path>
     <circle cx="140" cy="100" r="4" fill="#1F2A30" stroke="none"></circle>
   </g>
 </svg>

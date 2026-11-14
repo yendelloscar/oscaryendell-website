@@ -2,6 +2,6 @@
   <g stroke="#1F2A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M100 88 C100 74, 112 64, 128 64 L152 64 C168 64, 180 74, 180 88 L180 148 L100 148 Z" fill="#FFFFFF"></path>
     <path d="M120 64 C120 52, 128 44, 140 44 C152 44, 160 52, 160 64" stroke-width="2"></path>
-    <rect x="128" y="98" width="24" height="16" rx="2" fill="#FFFFFF"></rect>
+    <rect x="128" y="98" width="24" height="16" rx="2" fill="#2F6B6B"></rect>
   </g>
 </svg>
