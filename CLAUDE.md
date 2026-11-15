@@ -3,24 +3,30 @@
 Website von Dr. Oscar Yendell (Armutssensibilität in pädagogischen Kontexten).
 Gehostet auf Netlify (Projekt `brilliant-chimera-23f413`), Deploy automatisch aus `main`.
 
-## Verbindliche Vorlage: Design-System
+## Verbindliche Vorlage: Design-System „Wiener Bildstatistik“
 
-Maßgeblich ist das Artefakt **„Oscar Yendell Design System“** in Claude Design
-(Slug `a5fd324f-aa80-4464-ba4e-15f86bfa9991`). Vor gestalterischen Änderungen dort
-`project/README.md`, `project/tokens.css` und `project/ui_kits/website/` lesen.
+Seit November 2026 gilt das Design-System „Wiener Bildstatistik“ (nach Isotype).
+Beschrieben in `DESIGN.md` im Ordner `oscar-designsystem`; die Gestaltungs-Vereinbarung
+der Startseite steht in `.impeccable/surfaces/index-html.md`. Das alte Artefakt in Claude Design
+(Lora, Inter, Creme) gilt nicht mehr.
 
-- Farben, Typo-Skala, Abstände, Radien, Schatten: nur über die Tokens in
-  `design/colors_and_type.css` (Spiegel von `tokens.css` aus dem Design-System).
-  Keine neuen Hex-Werte im Code. Weicht das Design-System ab, zuerst die Tokens hier nachziehen.
-- Schriften: Lora (Überschriften), Inter (Text), DM Sans nur bei Bedarf.
-  Auf der Website als WOFF2 ausliefern; JetBrains Mono nicht einbinden, solange es nicht sichtbar genutzt wird.
-- Bildsprache: gezeichnete Illustrationen aus dem Design-System (`project/assets/illustrations/`),
-  keine Stockfotos. Ausnahme: Porträts von Oscar.
-- Farbe ist nie Dekoration: Farben tragen die im Design-System festgelegte Bedeutung.
-- Textfarben mit ausreichendem Kontrast (mind. 4,5:1): `ink-mute` nie für lesbaren Text, nur für Platzhalter und Zierlinien.
-  Farbiger kleiner Text in den `-deep`-Varianten (`clay-deep`, `ochre-deep`, `moss-deep`, `teal`/`teal-deep`).
-- Überschriften ohne Sprünge (h1 → h2 → h3), Linktexte aussagekräftig (nicht „hier“ oder „mehr“).
-- Logo-Motiv (zwei Ringe mit Teal-Lücke) nicht verändern.
+- Farben, Schrift, Abstände nur über die Tokens in `design/bildstatistik.css`. Keine neuen Hex-Werte im Code.
+- Jede Farbe hat genau eine Aufgabe:
+  - Tinte `--ink`: Text, Zeichen, Linien, Links, Fokus.
+  - Petrol `--petrol`: nur die hervorgehobene Größe in einer Zählreihe (auf dunklem Grund `--petrol-on-ink`).
+  - Rot `--act`: nur die Hauptaktion (Anfrage).
+  - Ocker `--ochre`: nur Quellen- und Hinweismarken.
+- Schrift: nur Jost (WOFF2 in `design/fonts/`, selbst ausgeliefert). Titel in Versalien.
+- Zählzeichen (`Glyph`, `CountRow` in `index.app.js`) sind flache Piktogramme gleicher Größe. Ein Zeichen pro Format:
+  Schule = schulinterne Fortbildung, Rathaus = kommunal, Pult = Workshop/Vortrag/Seminar, Blatt = Material.
+- Jede Zählreihe braucht eine Legende („1 Zeichen = …“) und eine echte Quelle (Autor, Jahr). Keine erfundenen Zahlen.
+- Keine Schatten, keine runden Ecken, keine Verläufe, keine kleinen Etiketten über Überschriften.
+  Abschnitte trennt eine 6-px-Tintenlinie.
+- Bildsprache: gezeichnete Illustrationen (`design/assets/illustrations/`, Tinte auf Weiß, ohne Farbkreis),
+  ein Objekt pro Bild, keine Stockfotos. Ausnahme: Porträts von Oscar.
+- Kopf und Fuß: Stile in `design/rahmen.css`, Unterseiten in `design/seiten.css`, Startseite in `start.css`.
+- Textkontrast mind. 4,5:1. Überschriften ohne Sprünge (h1 → h2 → h3), Linktexte aussagekräftig.
+- Logo-Motiv (zwei Ringe mit Petrol-Lücke) nicht verändern.
 
 ## Sprache
 
@@ -38,7 +44,7 @@ Maßgeblich ist das Artefakt **„Oscar Yendell Design System“** in Claude Des
 - **Das Repo ist die einzige Quelle der Website.** Keine Exporte aus Claude Design mehr hochladen: Ein Export
   überschreibt alle Änderungen im Repo. Änderungen an Inhalt und Layout direkt hier als Pull Request.
 - Aufbau: `*.html` mit `<div id="root">`, `*.app.js` (React-Komponenten, kompiliert, aber lesbar; direkt bearbeiten),
-  `vendor/` (React), `styles.css`, `blog/blog.css`, `legal.css`, `design/` (Tokens, Schriften, Bilder).
+  `vendor/` (React), `start.css`, `design/bildstatistik.css` (Tokens), `design/rahmen.css`, `design/seiten.css`, `design/` (Schriften, Bilder).
   Kopf- und Fußzeile stecken in jeder `*.app.js`: Änderungen dort in allen Dateien gleich vornehmen.
 - `npm run build` (läuft auf Netlify, siehe `netlify.toml`) rendert jede Seite vor und schreibt den Inhalt
   in `<div id="root">` (Ausgabe `dist/`). Suchmaschinen sehen so den vollständigen Text; im Browser rendert React danach normal.
