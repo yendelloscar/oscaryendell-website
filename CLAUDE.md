@@ -22,8 +22,8 @@ der Startseite steht in `.impeccable/surfaces/index-html.md`. Das alte Artefakt 
 - Jede Zählreihe braucht eine Legende („1 Zeichen = …“) und eine echte Quelle (Autor, Jahr). Keine erfundenen Zahlen.
 - Keine Schatten, keine runden Ecken, keine Verläufe, keine kleinen Etiketten über Überschriften.
   Abschnitte trennt eine 6-px-Tintenlinie.
-- Bildsprache: gezeichnete Illustrationen (`design/assets/illustrations/`, Tinte auf Weiß, ohne Farbkreis),
-  ein Objekt pro Bild, keine Stockfotos. Ausnahme: Porträts von Oscar.
+- Bildsprache: Illustrationen als gefüllte Silhouetten nach Gerd Arntz (`design/assets/illustrations/`, ganz in Tinte,
+  Details ausgespart, kein Petrol, im Stil der Zählzeichen), ein Objekt pro Bild, keine Stockfotos. Ausnahme: Porträts von Oscar.
 - Kopf und Fuß: Stile in `design/rahmen.css`, Unterseiten in `design/seiten.css`, Startseite in `start.css`.
 - Textkontrast mind. 4,5:1. Überschriften ohne Sprünge (h1 → h2 → h3), Linktexte aussagekräftig.
 - Logo-Motiv (zwei Ringe mit Petrol-Lücke) nicht verändern.
