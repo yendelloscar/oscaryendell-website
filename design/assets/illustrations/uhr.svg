@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" fill="none">
-  <g stroke="#1F2A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="140" cy="100" r="46" fill="#FFFFFF"></circle>
-    <line x1="140" y1="100" x2="140" y2="70"></line>
-    <line x1="140" y1="100" x2="164" y2="112" stroke="#2F6B6B" stroke-width="3"></line>
-    <circle cx="140" cy="100" r="3" fill="#1F2A30" stroke="none"></circle>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200"><path fill="#1F2A30" fill-rule="evenodd" d="M74 100a66 66 0 1 0 132 0a66 66 0 1 0 -132 0z M88 100a52 52 0 1 0 104 0a52 52 0 1 0 -104 0z"/><path fill="#1F2A30" d="M136 52h8v14h-8z"/><path fill="#1F2A30" d="M136 134h8v14h-8z"/><path fill="#1F2A30" d="M88 96h14v8h-14z"/><path fill="#1F2A30" d="M178 96h14v8h-14z"/><path fill="#1F2A30" d="M135 64h10v40h-10z"/><path fill="#1F2A30" d="M137 97l42 21l-5 9l-42-21z"/><path fill="#1F2A30" d="M131 100a9 9 0 1 0 18 0a9 9 0 1 0 -18 0z"/></svg>

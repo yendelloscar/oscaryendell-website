@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" fill="none">
-  <g stroke="#1F2A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M118 60 L162 60 L162 130 L140 156 L118 130 Z" fill="#FFFFFF"></path>
-    <path d="M118 130 L162 130" stroke="#2F6B6B" stroke-width="3"></path>
-    <path d="M118 60 L162 60" stroke-width="2.6"></path>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200"><path fill="#1F2A30" fill-rule="evenodd" d="M122 40L158 40L158 128L140 164L122 128Z M122 56h36v6h-36z M132 146L148 146L140 160Z"/></svg>
